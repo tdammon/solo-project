@@ -12,6 +12,18 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+//Sends back users settings
+router.get('/settings/:id', (req,res) => {
+  let id = req.params.id
+  let sqlText = `SELECT * FROM settings WHERE account_id = $1`
+  pool.query(sqlText,[id])
+  .then( response => {
+    res.send(response.rows);
+  }).catch(err => {
+    console.log(err);
+  })
+})
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
