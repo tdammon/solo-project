@@ -16,6 +16,11 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
+import FlashcardsPage from '../FlashcardsPage/FlashcardsPage';
+import SettingsPage from '../SettingsPage/SettingsPage';
+import TranslationPage from '../TranslationPage/TranslationPage';
+import StatisticsPage from '../StatisticsPage/StatisticsPage';
+import AllCardsPage from '../AllCardsPage/AllCardsPage';
 
 import './App.css';
 
@@ -55,6 +60,36 @@ class App extends Component {
               path="/info"
               component={InfoPage}
             />
+            {/* This route leads users to the flashcards page*/}
+            <ProtectedRoute
+              exact
+              path="/flashcards"
+              component={FlashcardsPage}
+              />
+            {/* This route leads users to the translation page*/}
+            <ProtectedRoute
+              exact
+              path="/translate"
+              component={TranslationPage}
+              /> 
+            {/* This route leads users to the flashcards page*/}
+            <ProtectedRoute
+              exact
+              path="/settings"
+              component={SettingsPage}
+              />   
+            {/* This route leads users to the all cards view page*/}
+            <ProtectedRoute
+              exact
+              path="/allcards"
+              component={AllCardsPage}
+              />  
+            {/* This route leads users to the statistics page*/}
+            <ProtectedRoute
+              exact
+              path="/statistics"
+              component={StatisticsPage}
+              />  
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
