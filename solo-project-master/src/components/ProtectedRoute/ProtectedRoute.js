@@ -3,6 +3,7 @@ import {Route} from 'react-router-dom'
 import {connect} from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import SettingsPage from '../SettingsPage/SettingsPage'
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
@@ -22,15 +23,24 @@ const ProtectedRoute = (props) => {
     component: ComponentToProtect,
     user,
     loginMode,
+    userReducerToSettings,
     ...otherProps
   } = props;
 
   let ComponentToShow;
 
-  if(user.id) {
-    // if the user is logged in (only logged in users have ids)
+  console.log(userReducerToSettings)
+  
+  if(user.id && userReducerToSettings.length > 0) {
+    console.log('settings are empty')
+    // if the user is logged in and has settings(only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
+  } else if(user.id) {
+
+    // if the user is logged in and does not have settings
+    //route to settings page
+    ComponentToShow = SettingsPage;
   } else if (loginMode === 'login') {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage
@@ -60,6 +70,7 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
     loginMode: state.loginMode,
+    userReducerToSettings: state.userReducerToSettings,
   }
 }
 
