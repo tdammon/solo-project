@@ -24,7 +24,7 @@ const styles = theme => ({
       paddingBottom: 20,
     },
     inputTitles : {
-      marginTop : 38
+      marginTop : 35,
     },
     labels : {
       marginBottom: 48,
@@ -37,6 +37,14 @@ const styles = theme => ({
 })
 
 class SettingsPage extends Component {
+
+  getSettings=() => {
+    this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
+  }
+
+  componentDidMount() {
+    this.getSettings();
+  }
   
 
   render() {
@@ -65,29 +73,34 @@ class SettingsPage extends Component {
             </div>
             <div className={classes.inputFields}>
             <TextField
-              label='Native Language'
+              // label='Native Language'
               variant='outlined'
               margin= 'normal' 
+              value={this.props.settings.native_language}
             />
             <TextField
-              label='Translation Language'
+              // label='Translation Language'
               variant='outlined'
               margin= 'normal' 
+              value={this.props.settings.translated_language}
             />
             <TextField
-              label='Session Frequency'
+              // label='Session Frequency'
               variant='outlined'
               margin= 'normal' 
+              value={this.props.settings.session_frequency}
             />
             <TextField
-              label='Cards Per Session'
+              // label='Cards Per Session'
               variant='outlined'
               margin= 'normal' 
+              value={this.props.settings.cards_per_session}
             />
             </div>
             </div>
             <Button>Confirm</Button>
           </Paper>
+          {JSON.stringify(this.props.settings)}
         </div>
       </div>
     );
@@ -97,8 +110,10 @@ class SettingsPage extends Component {
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({errors}) => ({ errors });
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   errors: state.errors,
+  user: state.user,
+  settings: state.settingsReducer,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(SettingsPage));
