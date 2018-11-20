@@ -27,13 +27,19 @@ const styles = theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
+    
+    paddingLeft: 10,
+    paddingBottom:15,
   },
   group: {
-    margin: 20,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#E8E8E8',
+
   },
   select: {
     height: 30,
-    backgroundColor: 'default'
+    marginLeft: 0,
   },
   flashcard: {
     display: 'flex',
