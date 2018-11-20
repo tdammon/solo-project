@@ -80,6 +80,11 @@ class FlashcardsPage extends Component {
     
     this.props.dispatch({type: 'GET_FLASHCARDS', payload: {id: this.props.user.id, filter: this.state.sortBy}})
   }
+
+  beginFlashcardSession= () => {
+    this.getFlashcards();
+    
+  }
   
 
   render() {
