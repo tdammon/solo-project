@@ -46,14 +46,21 @@ const styles = theme => ({
 class TranslationPage extends Component {
   
   state = {
-    inputText: ''
+    inputText: '',
+    translation: '',
   }
 
   //this function updates state when the input field text is updated
   handleChange= (tag) => event => {
     this.setState({
+      ...this.state,
       [tag] : event.target.value
     })
+  }
+
+  //this function will save the text and translation as a flashcard in the database
+  saveFlashCard=()=> {
+    this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id}})
   }
 
   render() {
@@ -72,6 +79,8 @@ class TranslationPage extends Component {
           <Button className={classes.translateButton} variant='raised'>Translate</Button>
           <TextField
             className={classes.translation}
+            value={this.state.translation}
+            onChange={this.handleChange('translation')}
             // variant='outlined'
             multiline
             rows="6"
@@ -79,7 +88,7 @@ class TranslationPage extends Component {
           />
           <div className={classes.buttonContainer}>
             <Button variant='raised'>Discard</Button>
-            <Button variant='raised'>Accept</Button>
+            <Button  onClick={this.saveFlashCard} variant='raised'>Accept</Button>
           </div>
         </div>
       </div>
@@ -92,6 +101,7 @@ class TranslationPage extends Component {
 // const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(TranslationPage));
