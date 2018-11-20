@@ -19,20 +19,22 @@ router.get('/', (req, res) => {
     })
 });
 
-// POST new settings to the database
-// router.post('/', (req, res) => {
-//     console.log(req.body)
-//     let account_id = req.body.id
-//     let input = req.body.inputText;
-//     let translation = req.body.translation
-//     let sqlText = `INSERT INTO words("account_id", "native_word", "translation", "frequency", "language_id")
-//     VALUES($1, $2, $3, 0.9, 13)`
-//     pool.query(sqlText,[account_id,input,translation])
-//     .then(response=> {
-//         res.sendStatus(201)
-//     }).catch(err=>{
-//         console.log(err)
-//     })
-// });
+//PUT new settings to the database
+router.put('/', (req, res) => {
+    console.log(req.body)
+    let account_id = req.body.user_id;
+    let native = Number(req.body.native);
+    let translated = Number(req.body.translated);
+    let sessions = Number(req.body.sessions);
+    let words = Number(req.body.words);
+    console.log(typeof account_id, typeof native, typeof translated, typeof sessions, typeof words)
+    let sqlText = `UPDATE settings SET "native_language" = $1, "translated_language" = $2, "session_frequency" = $3, "cards_per_session" = $4 WHERE id = $5;`
+    pool.query(sqlText,[native, translated, sessions, words, account_id])
+    .then(response=> {
+        res.sendStatus(201)
+    }).catch(err=>{
+        console.log(err)
+    })
+});
 
 module.exports = router;
