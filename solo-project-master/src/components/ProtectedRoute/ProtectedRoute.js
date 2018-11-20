@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import SettingsPage from '../SettingsPage/SettingsPage'
+import FlashcardsPage from '../FlashcardsPage/FlashcardsPage'
 
 // A Custom Wrapper Component -- This will keep our code DRY.
 // Responsible for watching redux state, and returning an appropriate component
