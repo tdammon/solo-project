@@ -17,11 +17,20 @@ router.get('/', (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
+// POST new flashcards to the database
 router.post('/', (req, res) => {
-
+    console.log(req.body)
+    let account_id = req.body.id
+    let input = req.body.inputText;
+    let translation = req.body.translation
+    let sqlText = `INSERT INTO words("account_id", "native_word", "translation", "frequency", "language_id")
+    VALUES($1, $2, $3, 0.9, 13)`
+    pool.query(sqlText,[account_id,input,translation])
+    .then(response=> {
+        res.sendStatus(201)
+    }).catch(err=>{
+        console.log(err)
+    })
 });
 
 module.exports = router;
