@@ -32,7 +32,7 @@ const ProtectedRoute = (props) => {
   console.log(userReducerToSettings)
   
   if(user.id && userReducerToSettings.length > 0) {
-    console.log('settings are empty')
+    console.log('settings are not empty')
     // if the user is logged in and has settings(only logged in users have ids)
     // show the component that is protected
     ComponentToShow = ComponentToProtect;
