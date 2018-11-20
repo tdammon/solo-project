@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell'
+import Table from '@material-ui/core/Table'
+import TableHead from '@material-ui/core/TableHead'
 
 class StatisticsPage extends Component {
   
@@ -17,18 +19,29 @@ class StatisticsPage extends Component {
   render() {
     return (
       <div>
-        {/* {this.props.hist.map(item => {
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>date</TableCell>
+              <TableCell>correct</TableCell>
+              <TableCell>incorrect</TableCell>
+              <TableCell>word</TableCell>
+              <TableCell>translation</TableCell>
+            </TableRow>
+          </TableHead>
+        {this.props.hist.map(item => {
           return(
             <TableRow>
               <TableCell>{item.date}</TableCell>
               <TableCell>{item.correct}</TableCell>
               <TableCell>{item.incorrect}</TableCell>
-              <TableCell>{item.word_id}</TableCell>
+              <TableCell>{item.native_word}</TableCell>
+              <TableCell>{item.translation}</TableCell>
             </TableRow>
           )
-        })} */}
-        {JSON.stringify(this.props.hist)}
+        })}
         
+        </Table>
       </div>
     );
   }

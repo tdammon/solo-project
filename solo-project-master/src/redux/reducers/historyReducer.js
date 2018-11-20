@@ -1,4 +1,4 @@
-const flashcardHistory = (state = {}, action) => {
+const flashcardHistory = (state = [], action) => {
     switch (action.type) {
       case 'DISPLAY_HISTORY':
       console.log('history payload', action.payload)

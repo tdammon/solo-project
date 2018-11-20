@@ -6,7 +6,10 @@ const router = express.Router();
 router.get('/', (req, res) => {
     console.log(req.query)
     let id = req.query.id;
-    let sqlText = `SELECT * FROM history WHERE account_id = $1;`
+    let sqlText = `SELECT history.date, history.correct, history.incorrect, 
+    words.native_word, words.translation FROM history 
+    JOIN words ON words.id = history.word_id 
+    WHERE history.account_id = $1;`
     pool.query(sqlText,[id])
     .then( response => {
         res.send(response.rows)
