@@ -69,9 +69,15 @@ class SettingsPage extends Component {
     this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
   }
 
+  //this function gets all languages from the database
+  getLanguages=() => {
+    this.props.dispatch({type: 'GET_LANGUAGES'})
+  }
+
   //this calls our getSettings function once the page loads
   componentDidMount() {
     this.getSettings();
+    this.getLanguages();
   }
   
   //this function handles the changes to settings which happen when a user
@@ -144,16 +150,16 @@ class SettingsPage extends Component {
             </header>
             <div className={classes.paper}>
             <div className={classes.inputTitles}>
-              <Typography className={classes.labels} variant='h5'>
+              <Typography className={classes.labels} variant='h6'>
                 Native Language: {this.props.settings.native_language}
               </Typography>
-              <Typography className={classes.labels} variant='h5'>
+              <Typography className={classes.labels} variant='h6'>
                 Translation Language: {this.props.settings.translated_language}
               </Typography>
-              <Typography className={classes.labels} variant='h5'>
+              <Typography className={classes.labels} variant='h6'>
                 Session Frequency: {this.props.settings.session_frequency}
               </Typography>
-              <Typography className={classes.labels} variant='h5'>
+              <Typography className={classes.labels} variant='h6'>
                 Words Per Session: {this.props.settings.cards_per_session}
               </Typography>
             </div>
@@ -175,9 +181,10 @@ class SettingsPage extends Component {
                     value={this.state.native_language}
                     onChange={this.handleChange('native_language')}
                     >
-                      <option/>
-                      <option value='5'>English</option>  
-                      <option value='16'>Spanish</option>
+                    <option />
+                    {this.props.languages.map(language => {
+                      return(<option value={language.id}>{language.language}</option>)
+                    })}
                     </Select>
                 </FormControl>
               </DialogContent>
@@ -207,9 +214,10 @@ class SettingsPage extends Component {
                     value={this.state.translated_language}
                     onChange={this.handleChange('translated_language')}
                     >
-                      <option/>
-                      <option value='5'>English</option>  
-                      <option value='16'>Spanish</option>
+                    <option />
+                    {this.props.languages.map(language => {
+                      return(<option value={language.id}>{language.language}</option>)
+                    })}
                     </Select>
                 </FormControl>
               </DialogContent>
@@ -292,6 +300,7 @@ class SettingsPage extends Component {
             <Button onClick={this.updateSettings}>Confirm</Button>
           </Paper>
         </div>
+        {/* {JSON.stringify(this.props.languages)} */}
       </div>
     );
   }
@@ -304,6 +313,7 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.user,
   settings: state.settingsReducer,
+  languages: state.languages,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(SettingsPage));
