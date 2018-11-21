@@ -14,21 +14,22 @@ function* getHistory(action) {
   }
 }
 
-// worker Saga: will be fired on"UPDATE_HISTORY" actions
-// function* setSettings(action) {
-//   try {
-
-//     yield call(axios.put, '/settings', action.payload)
-//     yield put({type: 'GET_SETTINGS'})
+//worker Saga: will be fired on"POST_HISTORY" actions
+function* setHistory(action) {
+  try {
+    console.log(action.payload)
+    yield call(axios.post, '/history', action.payload)
+    yield call(axios.put, '/flashcards', action.payload)
+    yield put({type: 'UPDATE_FLASHCARD_ARRAY'})
     
-//   } catch(error) {
-//     console.log('Error Updating settings:', error)
-//   }
-// }
+  } catch(error) {
+    console.log('Error Updating history:', error)
+  }
+}
 
 function* historySaga() {
   yield takeLatest('GET_HISTORY', getHistory);
-  //yield takeLatest('UPDATE_SETTINGS', setSettings);
+  yield takeLatest('POST_HISTORY', setHistory);
   
 }
 
