@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
     console.log(req.query)
     let id = req.query.id;
-    let sqlText = `SELECT nat_lang.id as lang_id, nat_lang.language_code as native_language_code, nat_lang.language as native_language, trans_lang.language_code as translated_language_code, trans_lang.language as translated_language, settings.session_frequency, settings.cards_per_session FROM settings 
+    let sqlText = `SELECT nat_lang.id as nat_lang_id, trans_lang.id as trans_lang_id, nat_lang.language_code as native_language_code, nat_lang.language as native_language, trans_lang.language_code as translated_language_code, trans_lang.language as translated_language, settings.session_frequency, settings.cards_per_session FROM settings 
     JOIN languages as nat_lang ON settings.native_language = nat_lang.id 
     JOIN languages as trans_lang ON settings.translated_language = trans_lang.id
     WHERE account_id = $1;`
@@ -27,7 +27,6 @@ router.put('/update', (req, res) => {
     let translated = Number(req.body.translated);
     let sessions = Number(req.body.sessions);
     let words = Number(req.body.words);
-    console.log(typeof account_id, typeof native, typeof translated, typeof sessions, typeof words)
     let sqlText = `UPDATE settings SET "native_language" = $1, "translated_language" = $2, "session_frequency" = $3, "cards_per_session" = $4 WHERE id = $5;`
     pool.query(sqlText,[native, translated, sessions, words, account_id])
     .then(response=> {

@@ -54,10 +54,10 @@ class SettingsPage extends Component {
   //state needs multiple open parameters in order to differentiate between
   //the settings pop-ups
   state = {
-    native_language : this.props.settings.native_language,
-    translated_language: this.props.settings.translated_language,
-    session_frequency: this.props.settings.session_frequency,
-    cards_per_session: this.props.settings.cards_per_session,
+    native_language : null,
+    translated_language: null,
+    session_frequency: null,
+    cards_per_session: null,
     open1: false,
     open2: false,
     open3: false,
@@ -78,6 +78,7 @@ class SettingsPage extends Component {
   componentDidMount() {
     this.getSettings();
     this.getLanguages();
+    
   }
   
   //this function handles the changes to settings which happen when a user
@@ -110,16 +111,18 @@ class SettingsPage extends Component {
 
   //this function updates the current users settings
   updateSettings=()=> {
-    console.log(this.props.settings )
+    let s = this.state
+    let l = this.props.settings
+    
     if(this.props.settings.native_language) {
       console.log('updating')
     this.props.dispatch(
       {type: 'UPDATE_SETTINGS', 
       payload: {
-        native: this.state.native_language, 
-        translated: this.state.translated_language,
-        sessions: this.state.session_frequency, 
-        words: this.state.words_per_session, 
+        native: s.native_language || l.nat_lang_id, 
+        translated: s.translated_language || l.trans_lang_id,
+        sessions: s.session_frequency || l.session_frequency, 
+        words: s.words_per_session || l.cards_per_session, 
         user_id: this.props.user.id
       }
     })
@@ -128,10 +131,10 @@ class SettingsPage extends Component {
     this.props.dispatch(
       {type: 'NEW_SETTINGS',
       payload: {
-        native: this.state.native_language, 
-        translated: this.state.translated_language,
-        sessions: this.state.session_frequency, 
-        words: this.state.words_per_session, 
+        native: s.native_language, 
+        translated: s.translated_language,
+        sessions: s.session_frequency, 
+        words: s.words_per_session, 
         user_id: this.props.user.id
       }
     })
@@ -211,7 +214,7 @@ class SettingsPage extends Component {
                   <InputLabel>Language</InputLabel>
                   <Select
                     native
-                    value={this.state.translated_language}
+                    //value={this.state.translated_language}
                     onChange={this.handleChange('translated_language')}
                     >
                     <option />
@@ -244,7 +247,7 @@ class SettingsPage extends Component {
                   <InputLabel>Hours</InputLabel>
                   <Select
                     native
-                    value={this.state.session_frequency}
+                    //value={this.state.session_frequency}
                     onChange={this.handleChange('session_frequency')}
                     >
                       <option/>
@@ -276,7 +279,7 @@ class SettingsPage extends Component {
                     <InputLabel></InputLabel>
                     <Select
                       native
-                      value={this.state.words_per_session}
+                      //value={this.state.cards_per_session}
                       onChange={this.handleChange('words_per_session')}
                       >
                         <option/>
@@ -300,7 +303,6 @@ class SettingsPage extends Component {
             <Button onClick={this.updateSettings}>Confirm</Button>
           </Paper>
         </div>
-        {/* {JSON.stringify(this.props.languages)} */}
       </div>
     );
   }
