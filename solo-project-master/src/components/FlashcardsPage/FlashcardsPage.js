@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core';
+import { call, put} from 'redux-saga/effects';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
@@ -64,12 +65,16 @@ const styles = theme => ({
 class FlashcardsPage extends Component {
 
   state = {
-    sortBy : ''
+    sortBy : '',
+    front: '',
+    back: '',
+    flip: false,
   }
 
   //this function updates state when a new filter is selected
   handleChange= (event)=> {
     this.setState({
+      ...this.state,
       sortBy: event.target.value
     })
   }
@@ -81,9 +86,38 @@ class FlashcardsPage extends Component {
     this.props.dispatch({type: 'GET_FLASHCARDS', payload: {id: this.props.user.id, filter: this.state.sortBy}})
   }
 
-  beginFlashcardSession= () => {
-    this.getFlashcards();
-    
+  componentDidUpdate(prevProps){
+    if(this.props.flashcards !== prevProps.flashcards){
+      this.beginFlashcardSession()
+    }
+  }
+  
+
+  beginFlashcardSession=()=> {
+    let deck = this.props.flashcards;
+    let card = this.props.flashcards[0];
+    let front = card.native_word
+    let back = card.translation;
+    this.setState({
+      ...this.state,
+      front: front,
+      back: back,
+    }, ()=>this.displayFlashcard(deck))
+  }
+
+  flipCard = () => {
+    this.setState({
+      ...this.state,
+      flip: !this.state.flip,
+    })
+  }
+
+  displayFlashcard = (deck) => {
+    if(!this.state.flip){
+      return this.state.front;
+    } else {
+      return this.state.back
+    }
   }
   
 
@@ -103,8 +137,8 @@ class FlashcardsPage extends Component {
             </FormControl>
           </div>
           <div>
-            <div className={classes.flashcard}>
-
+            <div className={classes.flashcard} onClick={this.flipCard}>
+              {this.displayFlashcard()}
             </div>
             <div className={classes.responseButtons}>
               <Button className={classes.response} variant='raised'>Incorrect</Button>
@@ -113,6 +147,7 @@ class FlashcardsPage extends Component {
             </div>
           </div>
         </div>
+        {/* {JSON.stringify(this.props.flashcards)} */}
       </div>
     );
   }
@@ -120,6 +155,7 @@ class FlashcardsPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  flashcards: state.flashcards
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(FlashcardsPage));

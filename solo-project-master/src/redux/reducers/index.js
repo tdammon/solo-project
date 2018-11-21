@@ -3,7 +3,7 @@ import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
 import userReducerToSettings from './userReducerToSettings'
-import flashcardsReducer from './flashcardsReducer'
+import flashcards from './flashcardsReducer'
 import settingsReducer from './settingsReducer'
 import flashcardHistory from './historyReducer'
 
@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
   loginMode, // will have a value of 'login' or 'registration' to control which screen is shown
   user, // will have an id and username if someone is logged in
   userReducerToSettings, 
-  flashcardsReducer,
+  flashcards,
   settingsReducer,
   flashcardHistory,
 });
