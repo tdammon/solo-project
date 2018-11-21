@@ -104,6 +104,9 @@ class SettingsPage extends Component {
 
   //this function updates the current users settings
   updateSettings=()=> {
+    console.log(this.props.settings )
+    if(this.props.settings.native_language) {
+      console.log('updating')
     this.props.dispatch(
       {type: 'UPDATE_SETTINGS', 
       payload: {
@@ -114,6 +117,19 @@ class SettingsPage extends Component {
         user_id: this.props.user.id
       }
     })
+  } else {
+    console.log('new')
+    this.props.dispatch(
+      {type: 'NEW_SETTINGS',
+      payload: {
+        native: this.state.native_language, 
+        translated: this.state.translated_language,
+        sessions: this.state.session_frequency, 
+        words: this.state.words_per_session, 
+        user_id: this.props.user.id
+      }
+    })
+  }
   }
   
 
