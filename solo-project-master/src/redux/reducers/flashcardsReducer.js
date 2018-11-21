@@ -1,4 +1,4 @@
-const flashcards = (state = {}, action) => {
+const flashcards = (state = [], action) => {
     switch (action.type) {
       case 'MAKE_FLASHCARD':
       console.log(action.payload)
