@@ -119,6 +119,10 @@ class FlashcardsPage extends Component {
       return this.state.back
     }
   }
+
+  sendAnswer = () => {
+    this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, }})
+  }
   
 
   render() {
@@ -141,9 +145,9 @@ class FlashcardsPage extends Component {
               {this.displayFlashcard()}
             </div>
             <div className={classes.responseButtons}>
-              <Button className={classes.response} variant='raised'>Incorrect</Button>
-              <Button className={classes.response} variant='raised'>Lock</Button>
-              <Button className={classes.response} variant='raised'>Correct</Button>
+              <Button onClick={()=>this.sendAnswer('0.05')} className={classes.response} variant='raised'>Incorrect</Button>
+              <Button onClick={()=>this.sendAnswer('0.00')} className={classes.response} variant='raised'>Lock</Button>
+              <Button onClick={()=>this.sendAnswer('-0.05')} className={classes.response} variant='raised'>Correct</Button>
             </div>
           </div>
         </div>
