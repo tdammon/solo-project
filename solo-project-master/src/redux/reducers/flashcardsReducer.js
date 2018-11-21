@@ -4,7 +4,7 @@ const flashcards = (state = [], action) => {
       console.log(action.payload)
         return action.payload;
       case 'UPDATE_FLASHCARD_ARRAY':
-        this.setState({
+        return ({
           ...state.slice(1,state.length)
         })
       default:
