@@ -81,6 +81,7 @@ class TranslationPage extends Component {
   //this function will save the text and translation as a flashcard in the database
   saveFlashCard=()=> {
     this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id}})
+    this.clearFields();
   }
 
   //checks for the api reducers state to update and 
