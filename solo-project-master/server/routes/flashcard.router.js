@@ -23,9 +23,10 @@ router.post('/', (req, res) => {
     let account_id = req.body.id
     let input = req.body.inputText;
     let translation = req.body.translation
+    let language = req.body.language_id
     let sqlText = `INSERT INTO words("account_id", "native_word", "translation", "frequency", "language_id")
-    VALUES($1, $2, $3, 0.9, 13)`
-    pool.query(sqlText,[account_id,input,translation])
+    VALUES($1, $2, $3, 0.9, $4)`
+    pool.query(sqlText,[account_id,input,translation,language])
     .then(response=> {
         res.sendStatus(201)
     }).catch(err=>{
