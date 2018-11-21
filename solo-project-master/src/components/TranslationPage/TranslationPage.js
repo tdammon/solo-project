@@ -59,9 +59,15 @@ class TranslationPage extends Component {
     })
   }
 
+  componentDidMount() {
+      this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
+    
+  }
+
   //this function creates the API request to have a word/s translated
   translatePhrase= () => {
-    this.props.dispatch({type: 'SEND_API_REQUEST', payload: this.state.inputText})
+    this.props.dispatch({type: 'SEND_API_REQUEST', payload: 
+      `${this.state.inputText}&target=${this.props.settings.translated_language_code}&source=${this.props.settings.native_language_code}`})
   }
 
   //this function updates state when the input field text is updated
@@ -116,7 +122,6 @@ class TranslationPage extends Component {
             <Button  onClick={this.saveFlashCard} variant='raised'>Accept</Button>
           </div>
         </div>
-        {JSON.stringify(this.props.api)}
       </div>
     );
   }
@@ -129,6 +134,7 @@ const mapStateToProps = state => ({
   errors: state.errors,
   user: state.user,
   api: state.api,
+  settings: state.settingsReducer,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(TranslationPage));

@@ -4,9 +4,11 @@ import axios from 'axios';
 
 function* apiRequest(action) {
     try {
-
+        
         const response = yield call(axios.get, `/api/search?q=${action.payload}`);
-        if(action.payload == response.data.data.translations[0].translatedText){
+        console.log(action.payload)
+        console.log(response.data)
+        if(response.data == 'reverse'){
             console.log('hello')
             const resp = yield call(axios.get, `/api/search/reverse?q=${action.payload}`)
             yield put( { type: 'SET_API', payload: resp.data.data.translations[0].translatedText});
