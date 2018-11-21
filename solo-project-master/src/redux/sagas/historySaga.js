@@ -20,6 +20,7 @@ function* setHistory(action) {
     console.log(action.payload)
     yield call(axios.post, '/history', action.payload)
     yield call(axios.put, '/flashcards', action.payload)
+    yield put({type: 'UPDATE_FLASHCARD_ARRAY'})
     
   } catch(error) {
     console.log('Error Updating history:', error)
