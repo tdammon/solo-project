@@ -80,7 +80,11 @@ class TranslationPage extends Component {
 
   //this function will save the text and translation as a flashcard in the database
   saveFlashCard=()=> {
-    this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id}})
+    this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id, language_id: this.props.settings.lang_id}})
+    this.setState({
+      inputText: '',
+      translation: '',
+    })
   }
 
   //checks for the api reducers state to update and 
@@ -122,6 +126,7 @@ class TranslationPage extends Component {
             <Button  onClick={this.saveFlashCard} variant='raised'>Accept</Button>
           </div>
         </div>
+        {/* {JSON.stringify(this.props.settings)} */}
       </div>
     );
   }
