@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.put('/', (req, res)=> {
+router.put('/update', (req, res)=> {
     console.log(req.body)
     let word_id = req.body.word_id;
     let freqUpdated = req.body.frequencyUpdate.frequency;

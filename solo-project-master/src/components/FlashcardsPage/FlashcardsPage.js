@@ -127,13 +127,13 @@ class FlashcardsPage extends Component {
     let frequencyUpdate = {}
     switch(number) {
       case '1':
-      frequencyUpdate = {frequency: '-0.05', incorrect: 1, correct: 0};
+      frequencyUpdate = {frequency: '0.05', incorrect: 1, correct: 0};
       break;
       case '2':
       frequencyUpdate = {frequency: '-frequency'};
       break;
       case '3':
-      frequencyUpdate = {frequency: '0.05', incorrect: 0, correct: 1};
+      frequencyUpdate = {frequency: '-0.05', incorrect: 0, correct: 1};
       break;
     }
     console.log(frequencyUpdate)
@@ -167,7 +167,7 @@ class FlashcardsPage extends Component {
             </div>
           </div>
         </div>
-        {JSON.stringify(this.props.flashcards)}
+        {/* {JSON.stringify(this.props.flashcards)} */}
       </div>
     );
   }
