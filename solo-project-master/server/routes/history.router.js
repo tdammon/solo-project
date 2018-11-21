@@ -19,4 +19,21 @@ router.get('/', (req, res) => {
     })
 });
 
+router.post('/', (req,res)=> {
+    console.log(req.body)
+    let user_id = req.body.user_id;
+    let word_id = req.body.word_id;
+    let correct = req.body.frequencyUpdate.correct;
+    let incorrect = req.body.frequencyUpdate.incorrect
+    let sqlText = `INSERT INTO history("correct", "incorrect", "word_id", "account_id")
+    VALUES($1, $2, $3, $4)`;
+    pool.query(sqlText,[correct, incorrect, word_id, user_id])
+    .then(response => {
+        res.sendStatus(201)
+    })
+    .catch(err => {
+        console.log('Error posting to history', err)
+    })
+})
+
 module.exports = router;

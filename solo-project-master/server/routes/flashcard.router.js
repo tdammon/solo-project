@@ -33,4 +33,16 @@ router.post('/', (req, res) => {
     })
 });
 
+router.put('/', (req, res)=> {
+    console.log(req.body)
+    let word_id = req.body.word_id;
+    let freqUpdated = req.body.frequencyUpdate.frequency;
+    let sqlText = `UPDATE words SET frequency = frequency+$2 WHERE id= $1`
+    pool.query(sqlText,[word_id, freqUpdated])
+    .then(response => {
+        res.sendStatus(201)
+    }).catch(err => {
+        console.log(err)
+    })
+})
 module.exports = router;

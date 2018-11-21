@@ -68,6 +68,7 @@ class FlashcardsPage extends Component {
     sortBy : '',
     front: '',
     back: '',
+    word_id: '',
     flip: false,
   }
 
@@ -98,10 +99,12 @@ class FlashcardsPage extends Component {
     let card = this.props.flashcards[0];
     let front = card.native_word
     let back = card.translation;
+    let word_id = card.id
     this.setState({
       ...this.state,
       front: front,
       back: back,
+      word_id : word_id,
     }, ()=>this.displayFlashcard(deck))
   }
 
@@ -120,8 +123,21 @@ class FlashcardsPage extends Component {
     }
   }
 
-  sendAnswer = () => {
-    this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, }})
+  sendAnswer = (number) => {
+    let frequencyUpdate = {}
+    switch(number) {
+      case '1':
+      frequencyUpdate = {frequency: '-0.05', incorrect: 1, correct: 0};
+      break;
+      case '2':
+      frequencyUpdate = {frequency: '-frequency'};
+      break;
+      case '3':
+      frequencyUpdate = {frequency: '0.05', incorrect: 0, correct: 1};
+      break;
+    }
+    console.log(frequencyUpdate)
+    this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
   }
   
 
@@ -145,13 +161,13 @@ class FlashcardsPage extends Component {
               {this.displayFlashcard()}
             </div>
             <div className={classes.responseButtons}>
-              <Button onClick={()=>this.sendAnswer('0.05')} className={classes.response} variant='raised'>Incorrect</Button>
-              <Button onClick={()=>this.sendAnswer('0.00')} className={classes.response} variant='raised'>Lock</Button>
-              <Button onClick={()=>this.sendAnswer('-0.05')} className={classes.response} variant='raised'>Correct</Button>
+              <Button onClick={()=>this.sendAnswer('1')} className={classes.response} variant='raised'>Incorrect</Button>
+              <Button onClick={()=>this.sendAnswer('2')} className={classes.response} variant='raised'>Lock</Button>
+              <Button onClick={()=>this.sendAnswer('3')} className={classes.response} variant='raised'>Correct</Button>
             </div>
           </div>
         </div>
-        {/* {JSON.stringify(this.props.flashcards)} */}
+        {JSON.stringify(this.props.flashcards)}
       </div>
     );
   }
