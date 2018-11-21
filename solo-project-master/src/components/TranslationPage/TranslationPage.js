@@ -50,6 +50,11 @@ class TranslationPage extends Component {
     translation: '',
   }
 
+  //this function creates the API request to have a word/s translated
+  translatePhrase= () => {
+    this.props.dispatch({type: 'SEND_API_REQUEST', payload: this.state.inputText})
+  }
+
   //this function updates state when the input field text is updated
   handleChange= (tag) => event => {
     this.setState({
@@ -76,7 +81,7 @@ class TranslationPage extends Component {
             variant='outlined'
             margin= 'normal'
           />
-          <Button className={classes.translateButton} variant='raised'>Translate</Button>
+          <Button  onClick={this.translatePhrase} className={classes.translateButton} variant='raised'>Translate</Button>
           <TextField
             className={classes.translation}
             value={this.state.translation}
@@ -91,6 +96,7 @@ class TranslationPage extends Component {
             <Button  onClick={this.saveFlashCard} variant='raised'>Accept</Button>
           </div>
         </div>
+        {JSON.stringify(this.props.api)}
       </div>
     );
   }
@@ -102,6 +108,7 @@ class TranslationPage extends Component {
 const mapStateToProps = state => ({
   errors: state.errors,
   user: state.user,
+  api: state.api
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(TranslationPage));

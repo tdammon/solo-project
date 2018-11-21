@@ -6,6 +6,7 @@ import userReducerToSettings from './userReducerToSettings'
 import flashcards from './flashcardsReducer'
 import settingsReducer from './settingsReducer'
 import flashcardHistory from './historyReducer'
+import api from './apiReducer'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   flashcards,
   settingsReducer,
   flashcardHistory,
+  api,
 });
 
 export default rootReducer;
