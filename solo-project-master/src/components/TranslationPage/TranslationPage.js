@@ -50,6 +50,26 @@ class TranslationPage extends Component {
     translation: '',
   }
 
+  //this function clears the input and translation fields
+  clearFields= () => {
+    this.setState({
+      ...this.state,
+      inputText: '',
+      translation: '',
+    })
+  }
+
+  componentDidMount() {
+      this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
+    
+  }
+
+  //this function creates the API request to have a word/s translated
+  translatePhrase= () => {
+    this.props.dispatch({type: 'SEND_API_REQUEST', payload: 
+      `${this.state.inputText}&target=${this.props.settings.translated_language_code}&source=${this.props.settings.native_language_code}`})
+  }
+
   //this function updates state when the input field text is updated
   handleChange= (tag) => event => {
     this.setState({
@@ -61,6 +81,17 @@ class TranslationPage extends Component {
   //this function will save the text and translation as a flashcard in the database
   saveFlashCard=()=> {
     this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id}})
+  }
+
+  //checks for the api reducers state to update and 
+  //then set state for translation
+  componentDidUpdate(prevProps){
+    if(this.props.api !== prevProps.api){
+      this.setState({
+        ...this.state,
+        translation : this.props.api
+      })
+    }
   }
 
   render() {
@@ -76,7 +107,7 @@ class TranslationPage extends Component {
             variant='outlined'
             margin= 'normal'
           />
-          <Button className={classes.translateButton} variant='raised'>Translate</Button>
+          <Button  onClick={this.translatePhrase} className={classes.translateButton} variant='raised'>Translate</Button>
           <TextField
             className={classes.translation}
             value={this.state.translation}
@@ -87,7 +118,7 @@ class TranslationPage extends Component {
             margin='normal'
           />
           <div className={classes.buttonContainer}>
-            <Button variant='raised'>Discard</Button>
+            <Button onClick={this.clearFields} variant='raised'>Discard</Button>
             <Button  onClick={this.saveFlashCard} variant='raised'>Accept</Button>
           </div>
         </div>
@@ -102,6 +133,8 @@ class TranslationPage extends Component {
 const mapStateToProps = state => ({
   errors: state.errors,
   user: state.user,
+  api: state.api,
+  settings: state.settingsReducer,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(TranslationPage));

@@ -59,6 +59,10 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .env
 
 # ignore package-lock as it complicates merging

@@ -5,6 +5,7 @@ import userSaga from './userSaga';
 import flashcardsSaga from './flashcardsSaga'
 import settingsSaga from './settingsSaga'
 import historySaga from './historySaga'
+import apiRequestSaga from './apiRequestSaga'
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     flashcardsSaga(),
     settingsSaga(),
     historySaga(),
+    apiRequestSaga(),
   ]);
 }
