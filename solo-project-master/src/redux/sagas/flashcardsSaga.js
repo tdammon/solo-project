@@ -6,7 +6,7 @@ function* getFlashcards(action) {
   try {
 
     const response = yield call(axios.get, '/flashcards', {params: {id: action.payload.id, filter: action.payload.filter}});
-    yield put({type: 'MAKE_FLASHCARD', payload: response.data})
+    yield put({type: 'SET_FLASHCARD', payload: response.data})
     
   } catch (error) {
     console.log('Error getting flashcards:', error);

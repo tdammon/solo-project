@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core';
+import { call, put} from 'redux-saga/effects';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
@@ -64,12 +65,17 @@ const styles = theme => ({
 class FlashcardsPage extends Component {
 
   state = {
-    sortBy : ''
+    sortBy : '',
+    front: '',
+    back: '',
+    word_id: '',
+    flip: false,
   }
 
   //this function updates state when a new filter is selected
   handleChange= (event)=> {
     this.setState({
+      ...this.state,
       sortBy: event.target.value
     })
   }
@@ -79,6 +85,59 @@ class FlashcardsPage extends Component {
   getFlashcards= ()=> {
     
     this.props.dispatch({type: 'GET_FLASHCARDS', payload: {id: this.props.user.id, filter: this.state.sortBy}})
+  }
+
+  componentDidUpdate(prevProps){
+    if(this.props.flashcards !== prevProps.flashcards){
+      this.beginFlashcardSession()
+    }
+  }
+  
+
+  beginFlashcardSession=()=> {
+    let deck = this.props.flashcards;
+    let card = this.props.flashcards[0];
+    let front = card.native_word
+    let back = card.translation;
+    let word_id = card.id
+    this.setState({
+      ...this.state,
+      front: front,
+      back: back,
+      word_id : word_id,
+    }, ()=>this.displayFlashcard(deck))
+  }
+
+  flipCard = () => {
+    this.setState({
+      ...this.state,
+      flip: !this.state.flip,
+    })
+  }
+
+  displayFlashcard = (deck) => {
+    if(!this.state.flip){
+      return this.state.front;
+    } else {
+      return this.state.back
+    }
+  }
+
+  sendAnswer = (number) => {
+    let frequencyUpdate = {}
+    switch(number) {
+      case '1':
+      frequencyUpdate = {frequency: '0.05', incorrect: 1, correct: 0};
+      break;
+      case '2':
+      frequencyUpdate = {frequency: '-frequency'};
+      break;
+      case '3':
+      frequencyUpdate = {frequency: '-0.05', incorrect: 0, correct: 1};
+      break;
+    }
+    console.log(frequencyUpdate)
+    this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
   }
   
 
@@ -98,16 +157,17 @@ class FlashcardsPage extends Component {
             </FormControl>
           </div>
           <div>
-            <div className={classes.flashcard}>
-
+            <div className={classes.flashcard} onClick={this.flipCard}>
+              {this.displayFlashcard()}
             </div>
             <div className={classes.responseButtons}>
-              <Button className={classes.response} variant='raised'>Incorrect</Button>
-              <Button className={classes.response} variant='raised'>Lock</Button>
-              <Button className={classes.response} variant='raised'>Correct</Button>
+              <Button onClick={()=>this.sendAnswer('1')} className={classes.response} variant='raised'>Incorrect</Button>
+              <Button onClick={()=>this.sendAnswer('2')} className={classes.response} variant='raised'>Lock</Button>
+              <Button onClick={()=>this.sendAnswer('3')} className={classes.response} variant='raised'>Correct</Button>
             </div>
           </div>
         </div>
+        {/* {JSON.stringify(this.props.flashcards)} */}
       </div>
     );
   }
@@ -115,6 +175,7 @@ class FlashcardsPage extends Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  flashcards: state.flashcards
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(FlashcardsPage));
