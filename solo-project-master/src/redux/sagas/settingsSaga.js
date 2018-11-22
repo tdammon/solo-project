@@ -4,7 +4,7 @@ import axios from 'axios';
 // worker Saga: will be fired on "GET_SETTINGS" actions
 function* getSettings(action) {
   try {
-    
+    console.log(action)
     const response = yield call(axios.get, '/settings', {params: {id: action.payload}});
     yield put({type: 'DISPLAY_SETTINGS', payload: response.data[0]})
     
@@ -19,7 +19,7 @@ function* setSettings(action) {
   try {
 
     yield call(axios.put, '/settings/update', action.payload)
-    //yield put({type: 'GET_SETTINGS'})
+    yield put({type: 'GET_SETTINGS', payload: action.payload.user_id})
     
   } catch(error) {
     console.log('Error Updating settings:', error)
