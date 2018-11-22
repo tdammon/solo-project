@@ -7,6 +7,7 @@ import settingsSaga from './settingsSaga'
 import historySaga from './historySaga'
 import apiRequestSaga from './apiRequestSaga'
 import languagesSaga from './languagesSage';
+import allCardsSaga from './allCardsSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     historySaga(),
     apiRequestSaga(),
     languagesSaga(),
+    allCardsSaga(),
   ]);
 }
