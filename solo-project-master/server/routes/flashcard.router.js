@@ -46,4 +46,18 @@ router.put('/update', (req, res)=> {
         console.log(err)
     })
 })
+
+router.put('/edit', (req,res)=> {
+    console.log(req.body)
+    let word = req.body.word
+    let translation = req.body.translation
+    let word_id = req.body.word_id
+    let sqlText = `UPDATE words SET native_word = $1, translation= $2 WHERE id=$3`
+    pool.query(sqlText, [word, translation, word_id])
+    .then(response => {
+        res.sendStatus(201)
+    }).catch(err => {
+        console.log(err)
+    })
+})
 module.exports = router;

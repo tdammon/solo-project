@@ -25,9 +25,21 @@ function* makeFlashcard(action) {
   }
 }
 
+function* editFlashcard(action) {
+  try{
+    yield call(axios.put, '/flashcards/edit', action.payload)
+    yield put({type: 'GET_ALL_CARDS', payload: action.payload.user_id})
+  }
+  catch(error) {
+    console.log('Error editting clashcard:', error)
+  }
+}
+
+
 function* flashcardsSaga() {
   yield takeLatest('GET_FLASHCARDS', getFlashcards);
   yield takeLatest('MAKE_FLASHCARD', makeFlashcard);
+  yield takeLatest('EDIT_FLASHCARD', editFlashcard)
   
 }
 

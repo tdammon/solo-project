@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     console.log(req.body)
     let id = req.query.id;
     console.log(id)
-    let sqlText = `SELECT * FROM words WHERE account_id = $1`
+    let sqlText = `SELECT * FROM words WHERE account_id = $1 ORDER BY id DESC`
     pool.query(sqlText,[id])
     .then( response => {
         res.send(response.rows)
