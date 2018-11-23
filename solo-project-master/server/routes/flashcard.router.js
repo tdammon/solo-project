@@ -19,13 +19,14 @@ router.get('/', (req, res) => {
 
 //this GET route will check if a flashcard exists with the given words
 router.get('/duplicate', (req,res) => {
-    console.log(req.query)
-    let id = req.query.id;
+    console.log('checking for duplicate', req.query)
+    let ids = Number(req.query.id);
     let word = req.query.word;
     let translation = req.query.translation;
     let sqlText = `SELECT * FROM words WHERE account_id = $1 AND native_word = $2 AND translation = $3`
-    pool.query(sqlText,[id, word, translation])
+    pool.query(sqlText,[ids, word, translation])
     .then( response => {
+        console.log('duplicate',response.rows)
         res.send(response.rows)
     })
     .catch(err => {
@@ -35,7 +36,7 @@ router.get('/duplicate', (req,res) => {
 
 // POST new flashcards to the database
 router.post('/', (req, res) => {
-    console.log(req.body)
+    console.log('flashcard', req.body)
     let account_id = req.body.id
     let input = req.body.inputText;
     let translation = req.body.translation

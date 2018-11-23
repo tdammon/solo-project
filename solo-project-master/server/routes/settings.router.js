@@ -28,8 +28,9 @@ router.put('/update', (req, res) => {
     let translated = Number(req.body.translated);
     let sessions = Number(req.body.words_per_week);
     let words = Number(req.body.words);
-    let sqlText = `UPDATE settings SET "native_language" = $1, "translated_language" = $2, "words_per_week" = $3, "cards_per_session" = $4 WHERE account_id = $5;`
-    pool.query(sqlText,[native, translated, sessions, words, account_id])
+    let words_mastered = Number(req.body.words_mastered)
+    let sqlText = `UPDATE settings SET "native_language" = $1, "translated_language" = $2, "words_per_week" = $3, "cards_per_session" = $4, "words_mastered" = $6 WHERE account_id = $5;`
+    pool.query(sqlText,[native, translated, sessions, words, account_id, words_mastered])
     .then(response=> {
         res.sendStatus(201)
     }).catch(err=>{
