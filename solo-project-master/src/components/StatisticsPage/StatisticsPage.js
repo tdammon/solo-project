@@ -6,6 +6,7 @@ import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
 import {Bar, Line, Pie} from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core';
+import ProgressChart from '../ProgressChart/ProgressChart'
 
 const styles = theme => ({
   containers : {
@@ -70,7 +71,11 @@ class StatisticsPage extends Component {
     const {classes} = this.props
     return (
       <div>
-        <button onClick={this.searchHistory}></button>
+        <div className={classes.pieholder}>
+        <div className={classes.piechart}>
+          <ProgressChart />
+          </div>
+          </div>
         <div className={classes.pieholder}>
         <div className={classes.piechart}>
           <Pie

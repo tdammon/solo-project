@@ -81,16 +81,8 @@ class TranslationPage extends Component {
   //this function will save the text and translation as a flashcard in the database
   saveFlashCard=()=> {
     if(this.state.inputText && this.state.translation){
-      this.props.dispatch({type: 'CHECK_FOR_DUPLICATE', payload: {id: this.props.user.id, word: this.state.inputText, translation: this.state.translation}})
-      if(this.props.flashcards == []){
-        this.props.dispatch({type: 'MAKE_FLASHCARD', payload: {...this.state, id: this.props.user.id, language_id: this.props.settings.trans_lang_id}})
-        this.setState({
-          inputText: '',
-          translation: '',
-        })
-      } else {
-        alert('Duplicate')
-      }
+      this.props.dispatch({type: 'CHECK_FOR_DUPLICATE', payload: {...this.state, id: this.props.user.id, language_id: this.props.settings.trans_lang_id}})
+      this.clearFields();
     } else {
       alert('Fill in both fields')
     }

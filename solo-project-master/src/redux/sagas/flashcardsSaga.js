@@ -17,8 +17,14 @@ function* getFlashcards(action) {
 function* checkForDuplicate(action) {
   try {
 
-    const response = yield call(axios.get, '/flashcards/duplicate', {params: {id: action.payload.id, word: action.payload.word, translation: action.payload.translation}});
-    yield put({type: 'SET_FLASHCARD', payload: response.data})
+    const response = yield call(axios.get, '/flashcards/duplicate', {params: {id: action.payload.id, word: action.payload.inputText, translation: action.payload.translation}});
+    console.log('this is the server response',response.data)
+    if(response.data.length < 1){
+      yield put({type: 'SET_FLASHCARD', payload: response.data})
+      yield call(axios.post, '/flashcards', action.payload)
+    } else {
+      alert('duplicate')
+    }
     
   } catch (error) {
     console.log('Error getting flashcards:', error);
