@@ -30,7 +30,7 @@ function* setSettings(action) {
 function* newSettings(action) {
   try{
     yield call(axios.post, '/settings', action.payload)
-    yield put({type: 'GET_SETTINGS'})
+    yield put({type: 'GET_SETTINGS', payload: action.payload.user_id})
   } catch(error) {
     console.log('Error Getting settings:', error)
   }

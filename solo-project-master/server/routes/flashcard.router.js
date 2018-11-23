@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     console.log(req.query)
     let id = req.query.id;
     let filter = req.query.filter;
-    let sqlText = `SELECT * FROM words WHERE account_id = $1 ORDER BY $2 LIMIT (20)`
+    let sqlText = `SELECT * FROM words WHERE account_id = $1 AND frequency != 0 ORDER BY $2 LIMIT (20)`
     pool.query(sqlText,[id,filter])
     .then( response => {
         res.send(response.rows)
@@ -16,6 +16,22 @@ router.get('/', (req, res) => {
         console.log('Error getting flashcards', err)
     })
 });
+
+//this GET route will check if a flashcard exists with the given words
+router.get('/duplicate', (req,res) => {
+    console.log(req.query)
+    let id = req.query.id;
+    let word = req.query.word;
+    let translation = req.query.translation;
+    let sqlText = `SELECT * FROM words WHERE account_id = $1 AND native_word = $2 AND translation = $3`
+    pool.query(sqlText,[id, word, translation])
+    .then( response => {
+        res.send(response.rows)
+    })
+    .catch(err => {
+        console.log('Error checking for duplicate', err)
+    })
+})
 
 // POST new flashcards to the database
 router.post('/', (req, res) => {
@@ -35,17 +51,18 @@ router.post('/', (req, res) => {
 });
 
 router.put('/update', (req, res)=> {
-    console.log(req.body)
+    console.log('updatting',req.body)
     let word_id = req.body.word_id;
     let freqUpdated = req.body.frequencyUpdate.frequency;
-    let sqlText = `UPDATE words SET frequency = frequency+$2 WHERE id= $1`
-    pool.query(sqlText,[word_id, freqUpdated])
+    let sqlText = `UPDATE words SET frequency = ${freqUpdated} WHERE id= $1`
+    pool.query(sqlText,[word_id])
     .then(response => {
         res.sendStatus(201)
     }).catch(err => {
         console.log(err)
     })
 })
+
 
 router.put('/edit', (req,res)=> {
     console.log(req.body)

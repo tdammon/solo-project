@@ -56,12 +56,14 @@ class SettingsPage extends Component {
   state = {
     native_language : null,
     translated_language: null,
-    session_frequency: null,
     cards_per_session: null,
+    words_mastered: null,
+    words_per_week: null,
     open1: false,
     open2: false,
     open3: false,
     open4: false,
+    open5: false,
   }
 
   //this function gets current settings from the database
@@ -121,8 +123,9 @@ class SettingsPage extends Component {
       payload: {
         native: s.native_language || l.nat_lang_id, 
         translated: s.translated_language || l.trans_lang_id,
-        sessions: s.session_frequency || l.session_frequency, 
-        words: s.words_per_session || l.cards_per_session, 
+        words_per_week: s.words_per_week || l.words_per_week, 
+        words: s.words_per_session || l.cards_per_session,
+        words_mastered: s.words_mastered || l.words_mastered, 
         user_id: this.props.user.id
       }
     })
@@ -133,8 +136,9 @@ class SettingsPage extends Component {
       payload: {
         native: s.native_language, 
         translated: s.translated_language,
-        sessions: s.session_frequency, 
+        words_per_week: s.words_per_week, 
         words: s.words_per_session, 
+        words_mastered: s.words_mastered,
         user_id: this.props.user.id
       }
     })
@@ -146,6 +150,7 @@ class SettingsPage extends Component {
     const {classes} = this.props
     return (
       <div className={classes.containers}>
+      {/* {JSON.stringify(this.props.settings)} */}
         <div className={classes.form}>
           <Paper >
             <header>
@@ -160,10 +165,13 @@ class SettingsPage extends Component {
                 Translation Language: {this.props.settings.translated_language}
               </Typography>
               <Typography className={classes.labels} variant='h6'>
-                Session Frequency: {this.props.settings.session_frequency}
+                Words Per Week: {this.props.settings.words_per_week}
               </Typography>
               <Typography className={classes.labels} variant='h6'>
                 Words Per Session: {this.props.settings.cards_per_session}
+              </Typography>
+              <Typography className={classes.labels} variant='h6'>
+                Words Mastered: {this.props.settings.words_mastered}
               </Typography>
             </div>
             <div className={classes.inputFields}>
@@ -234,21 +242,21 @@ class SettingsPage extends Component {
               </DialogActions>
               </Dialog>
 
-              <Button className={classes.button} onClick={()=>this.handleClickOpen('open3')} variant="raised">Change Session Frequency</Button>
+              <Button className={classes.button} onClick={()=>this.handleClickOpen('open3')} variant="raised">Change Words Per Week</Button>
             <Dialog
               disableBackdropClick
               disableEscapeKeyDown
               open={this.state.open3}
               onClose={this.handleClose}
               >
-              <DialogTitle>Frequency</DialogTitle>
+              <DialogTitle>How Many Words Will You Master Each Week?</DialogTitle>
               <DialogContent>
                 <FormControl>
-                  <InputLabel>Hours</InputLabel>
+                  <InputLabel>Words</InputLabel>
                   <Select
                     native
                     //value={this.state.session_frequency}
-                    onChange={this.handleChange('session_frequency')}
+                    onChange={this.handleChange('words_per_week')}
                     >
                       <option/>
                       <option value='12'>12</option>  
@@ -293,6 +301,49 @@ class SettingsPage extends Component {
                   Cancel
                 </Button>
                 <Button onClick={()=>this.handleClose('open4')}>
+                  Confirm
+                </Button>
+              </DialogActions>
+              </Dialog>
+
+              <Button className={classes.button} onClick={()=>this.handleClickOpen('open5')} variant="raised">Change Words Mastered</Button>
+            <Dialog
+              disableBackdropClick
+              disableEscapeKeyDown
+              open={this.state.open5}
+              onClose={this.handleClose}
+              >
+              <DialogTitle>How Many Words Have You Mastered?</DialogTitle>
+              <DialogContent>
+                <FormControl>
+                  <InputLabel></InputLabel>
+                    <p>
+                      Below is a list of words and which level of word mastery they fall under.<br></br>
+                      <br></br>
+                      0 - 250 : He, She, Woman, Go, In, Make, House<br></br>
+                      250 - 500 : Under, Together, Music, Until, Feel, Knew<br></br>
+                      500-1000 : Wait, Deep, Meet, Skin, Protect, Current<br></br>
+                      1000-1500: Nature, Motion, Enemy, Glass, Happen, Powerful<br></br>
+                      1500-2000: Somehow, Emergency, Occasion, Adjust<br></br>
+                      <br></br>
+                      Enter a number below that fits the range you fall into.
+                    </p>
+                      <TextField
+                        label='Words Known'
+                        value= {this.state.words_mastered}
+                        
+                        onChange={this.handleChange('words_mastered')}
+                        variant='outlined'
+                        margin= 'normal'
+                      />
+                    
+                </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={()=>this.handleClose('open5')}>
+                  Cancel
+                </Button>
+                <Button onClick={()=>this.handleClose('open5')}>
                   Confirm
                 </Button>
               </DialogActions>

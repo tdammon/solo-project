@@ -127,17 +127,18 @@ class FlashcardsPage extends Component {
     let frequencyUpdate = {}
     switch(number) {
       case '1':
-      frequencyUpdate = {frequency: '0.05', incorrect: 1, correct: 0};
+      frequencyUpdate = {frequency: 'frequency+0.05', incorrect: 1, correct: 0};
+      this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
       case '2':
-      frequencyUpdate = {frequency: '-frequency'};
+      frequencyUpdate = {frequency: '0', words_mastered: 'words_mastered+1'};
+      this.props.dispatch({type: 'LOCK_CARD', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
       case '3':
-      frequencyUpdate = {frequency: '-0.05', incorrect: 0, correct: 1};
+      frequencyUpdate = {frequency: 'frequency-0.05', incorrect: 0, correct: 1};
+      this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
     }
-    console.log(frequencyUpdate)
-    this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
   }
   
 
