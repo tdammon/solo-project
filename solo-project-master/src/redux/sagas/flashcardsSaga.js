@@ -14,6 +14,19 @@ function* getFlashcards(action) {
   }
 }
 
+// worker Saga: will be fired on "GET_MASTERED" actions
+function* getMastered(action) {
+  try {
+
+    const response = yield call(axios.get, '/flashcards/mastered', {params: {id: action.payload}});
+    yield put({type: 'SET_MASTERED', payload: response.data[0]})
+    
+  } catch (error) {
+    console.log('Error getting mastered flashcards:', error);
+    
+  }
+}
+
 function* checkForDuplicate(action) {
   try {
 
@@ -67,6 +80,7 @@ function* lockCard(action) {
 
 function* flashcardsSaga() {
   yield takeLatest('GET_FLASHCARDS', getFlashcards);
+  yield takeLatest('GET_MASTERED', getMastered)
   yield takeLatest('MAKE_FLASHCARD', makeFlashcard);
   yield takeLatest('EDIT_FLASHCARD', editFlashcard)
   yield takeLatest('CHECK_FOR_DUPLICATE', checkForDuplicate)

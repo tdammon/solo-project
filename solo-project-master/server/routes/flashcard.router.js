@@ -17,6 +17,21 @@ router.get('/', (req, res) => {
     })
 });
 
+//GET only weekly mastered card count
+router.get('/mastered', (req,res) => {
+    console.log('mastered',req.query)
+    let id = req.query.id;
+    console.log(id)
+    let sqlText = `SELECT COUNT(*) FROM words WHERE date_mastered >= date_trunc('week', now()) AND account_id = $1;`
+    pool.query(sqlText, [id])
+    .then( response => {
+        res.send(response.rows)
+    })
+    .catch(err => {
+        console.log('Error getting mastered count', err)
+    })
+})
+
 //this GET route will check if a flashcard exists with the given words
 router.get('/duplicate', (req,res) => {
     console.log('checking for duplicate', req.query)
@@ -55,7 +70,7 @@ router.put('/update', (req, res)=> {
     console.log('updatting',req.body)
     let word_id = req.body.word_id;
     let freqUpdated = req.body.frequencyUpdate.frequency;
-    let sqlText = `UPDATE words SET frequency = ${freqUpdated} WHERE id= $1`
+    let sqlText = `UPDATE words SET  frequency = ${freqUpdated}, date_mastered = now() WHERE id= $1`
     pool.query(sqlText,[word_id])
     .then(response => {
         res.sendStatus(201)

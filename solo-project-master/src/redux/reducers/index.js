@@ -9,6 +9,7 @@ import flashcardHistory from './historyReducer'
 import api from './apiReducer'
 import languages from './languagesReducer'
 import allcards from './allCardsReducer'
+import masteredCards from './masteredCardsReducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   api,
   languages,
   allcards,
+  masteredCards,
 });
 
 export default rootReducer;

@@ -7,14 +7,18 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   containers : {
     display: 'flex',
-    justifyContent: 'center',
+    margin: 'auto',
     },
     pieholder: {
       display: 'flex',
+      leftPadding: 25,
+      margin: 'auto',
     },
     piechart : {
       width: 400,
       display: 'flex',
+      justifyContent: 'spaceBetween',
+      paddingLeft: 25,
     }
 
 
@@ -35,45 +39,20 @@ class ProgressChart extends Component {
     this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
   }
 
+  getWordsMastered=() => {
+    this.props.dispatch({type: 'GET_MASTERED', payload: this.props.user.id})
+  }
+
   componentDidMount() {
       this.getSettings();
+      this.getWordsMastered();
   }
 
   render() {
     const {classes} = this.props
     return (
+      <div className={classes.containers}>
         <div className={classes.pieholder}>
-      <div className={classes.piechart}>
-        <Pie
-            data={{
-              labels: ['Words Mastered','Words To Go'],
-              datasets:[
-                {
-                  label:'Next Level',
-                  data:
-                    this.displayData()
-                  ,
-                  backgroundColor:[
-                    'green',
-                    'red'
-                  ]
-                }
-              ]
-            }}
-            options={{
-              title:{
-                display:true,
-                text:`Master ${this.displayData()[1]} More for the Next Level!`,
-                fontSize:25
-              },
-              legend:{
-                display:true,
-                position:'right'
-              },
-              cutoutPercentage: 50,
-            }}
-            />
-        </div>
         <div className={classes.piechart}>
         <Pie
             data={{
@@ -105,6 +84,39 @@ class ProgressChart extends Component {
             }}
             />
         </div>
+        <div className={classes.piechart}>
+        <Pie
+            data={{
+              labels: ['Mastered','To Go'],
+              datasets:[
+                {
+                  label:'Weekly Progress',
+                  data:
+                    [this.props.mastered.count, this.props.settings.words_per_week-this.props.mastered.count]
+                  ,
+                  backgroundColor:[
+                    'green',
+                    'red'
+                  ]
+                }
+              ]
+            }}
+            options={{
+              title:{
+                display:true,
+                text:`Weely Progress!`,
+                fontSize:25
+              },
+              legend:{
+                display:true,
+                position:'right'
+              },
+              cutoutPercentage: 50,
+            }}
+            />
+        </div>
+        {/* {JSON.stringify(this.props.mastered)} */}
+      </div>
       </div>
     );
   }
@@ -117,7 +129,8 @@ const mapStateToProps = state => ({
   errors: state.errors,
   user: state.user,
   hist: state.flashcardHistory,
-  settings: state.settingsReducer
+  settings: state.settingsReducer,
+  mastered: state.masteredCards,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(ProgressChart));
