@@ -253,15 +253,15 @@ class SettingsPage extends Component {
               <DialogContent>
                 <FormControl>
                   <InputLabel>Words</InputLabel>
-                  <Select
-                    native
-                    //value={this.state.session_frequency}
-                    onChange={this.handleChange('words_per_week')}
-                    >
-                      <option/>
-                      <option value='12'>12</option>  
-                      <option value='24'>24</option>
-                    </Select>
+                    
+                      <TextField
+                        label='Words Known'
+                        value= {this.state.words_per_week}
+                        
+                        onChange={this.handleChange('words_per_week')}
+                        variant='outlined'
+                        margin= 'normal'
+                      />
                 </FormControl>
               </DialogContent>
               <DialogActions>

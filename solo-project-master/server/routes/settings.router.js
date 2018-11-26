@@ -4,7 +4,7 @@ const router = express.Router();
 
 //GET settings from database filter by id
 router.get('/', (req, res) => {
-    console.log(req.query)
+    console.log('settings',req.query)
     console.log(req.body)
     let id = req.query.id;
     let sqlText = `SELECT nat_lang.id as nat_lang_id, trans_lang.id as trans_lang_id, nat_lang.language_code as native_language_code, nat_lang.language as native_language, trans_lang.language_code as translated_language_code, trans_lang.language as translated_language, settings.words_per_week, settings.cards_per_session, settings.words_mastered FROM settings 
@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
     WHERE account_id = $1;`
     pool.query(sqlText,[id])
     .then( response => {
+        console.log('setings', response.rows)
         res.send(response.rows)
     })
     .catch(err => {
@@ -59,8 +60,9 @@ router.post('/', (req,res) => {
     let translated = Number(req.body.translated);
     let sessions = Number(req.body.words_per_week);
     let words = Number(req.body.words);
-    let sqlText = `INSERT INTO settings ("native_language", "translated_language", "words_per_week", "cards_per_session", "account_id") VALUES($1,$2,$3,$4,$5)`;
-    pool.query(sqlText,[native, translated, sessions, words, account_id])
+    let words_mastered = Number(req.body.words_mastered)
+    let sqlText = `INSERT INTO settings ("native_language", "translated_language", "words_per_week", "cards_per_session", "account_id", "words_mastered") VALUES($1,$2,$3,$4,$5,$6)`;
+    pool.query(sqlText,[native, translated, sessions, words, account_id, words_mastered])
     .then(response=> {
         res.sendStatus(201)
     }).catch(err=>{

@@ -7,6 +7,8 @@ import TableHead from '@material-ui/core/TableHead'
 import {Bar, Line, Pie} from 'react-chartjs-2';
 import { withStyles } from '@material-ui/core';
 import ProgressChart from '../ProgressChart/ProgressChart'
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton'
 
 const styles = theme => ({
   containers : {
@@ -57,10 +59,16 @@ class StatisticsPage extends Component {
         let careerIncorrect = this.props.hist.filter(item => item.incorrect ==1) 
         return [careerCorrect.length, careerIncorrect.length]
     }
-    
-    
-    
-    
+  }
+
+  correctOrNot=(correct)=> {
+    console.log('running')
+    if(correct == 1){
+      return (<h7 style={{color: 'green'}}>✓</h7>)
+    } else {
+      return (<h7 style={{color: 'red'}}>X</h7>)
+      //return (<IconButton><DeleteIcon /></IconButton>)
+    }
   }
 
   componentDidMount() {
@@ -71,6 +79,7 @@ class StatisticsPage extends Component {
     const {classes} = this.props
     return (
       <div>
+        {/* <div><IconButton><DeleteIcon /></IconButton></div> */}
         <div className={classes.pieholder}>
         <div className={classes.piechart}>
           <ProgressChart />
@@ -203,7 +212,6 @@ class StatisticsPage extends Component {
             <TableRow>
               <TableCell>date</TableCell>
               <TableCell>correct</TableCell>
-              <TableCell>incorrect</TableCell>
               <TableCell>word</TableCell>
               <TableCell>translation</TableCell>
             </TableRow>
@@ -211,9 +219,8 @@ class StatisticsPage extends Component {
         {this.props.hist.map(item => {
           return(
             <TableRow>
-              <TableCell>{Date(item.date)}</TableCell>
-              <TableCell>{item.correct}</TableCell>
-              <TableCell>{item.incorrect}</TableCell>
+              <TableCell>{Date(item.date).slice(0,15)}</TableCell>
+              <TableCell>{this.correctOrNot(item.correct)}</TableCell>
               <TableCell>{item.native_word}</TableCell>
               <TableCell>{item.translation}</TableCell>
             </TableRow>

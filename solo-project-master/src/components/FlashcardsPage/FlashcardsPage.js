@@ -7,6 +7,8 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import {ThumbUpAlt, ThumbDownAlt, Lock} from '@material-ui/icons'
 
 const styles = theme => ({
   container : {
@@ -119,7 +121,7 @@ class FlashcardsPage extends Component {
     if(!this.state.flip){
       return this.state.front;
     } else {
-      return this.state.back
+      return (<div><p>{this.state.back}</p><div className={classes.responseButtons}><IconButton><ThumbDownAlt /></IconButton><IconButton><Lock /></IconButton><IconButton><ThumbUpAlt /></IconButton></div></div>)
     }
   }
 
