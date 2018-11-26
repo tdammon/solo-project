@@ -103,11 +103,7 @@ class StatisticsPage extends Component {
       <div>
         {/* <div><IconButton><DeleteIcon /></IconButton></div> */}
         <div className={classes.pieholder}>
-        <div className={classes.piechart}>
-          <ProgressChart />
-          </div>
-          </div>
-        <div className={classes.pieholder}>
+        {/* <ProgressChart /> */}
         <div className={classes.piechart}>
           <Pie
             data={{

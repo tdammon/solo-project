@@ -7,7 +7,8 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   input : {
     width: 500,
-    backgroundColor: '#E8E8E8',
+    // backgroundColor: '#E8E8E8',
+    backgroundColor: 'white',
     borderRadius: 5,
   },
   container : {
@@ -34,7 +35,8 @@ const styles = theme => ({
   translation: {
     width: 500,
     height: 100,
-    backgroundColor: '#E8E8E8',
+    // backgroundColor: '#E8E8E8',
+    backgroundColor: 'white',
     borderRadius: 5,
     padding: 10,
   },

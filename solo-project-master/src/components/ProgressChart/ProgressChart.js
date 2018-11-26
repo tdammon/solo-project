@@ -8,9 +8,11 @@ const styles = theme => ({
   containers : {
     display: 'flex',
     margin: 'auto',
+    position: 'absolute',
     },
     pieholder: {
       display: 'flex',
+      flexDirection: 'column',
       leftPadding: 25,
       margin: 'auto',
     },
@@ -27,14 +29,7 @@ const styles = theme => ({
 })
 class ProgressChart extends Component {
 
-    displayData= () => {
-        let progress = this.props.settings.words_mastered % 20;
-        let toGo = 20 -progress;
-
-        return [progress, toGo]
-    }
-
-    //this function gets current settings from the database
+  //this function gets current settings from the database
   getSettings=() => {
     this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
   }
@@ -73,7 +68,7 @@ class ProgressChart extends Component {
             options={{
               title:{
                 display:true,
-                text:`Master ${3000-this.props.settings.words_mastered} More Words for Fluency!`,
+                text:`Master ${3000-this.props.settings.words_mastered} More Words!`,
                 fontSize:25
               },
               legend:{
@@ -85,19 +80,19 @@ class ProgressChart extends Component {
             />
         </div>
         <div className={classes.piechart}>
-        <Pie
+        <Bar
             data={{
-              labels: ['Mastered','To Go'],
+              labels: ['Weekly Progress'],
               datasets:[
                 {
-                  label:'Weekly Progress',
-                  data:
-                    [this.props.mastered.count, this.props.settings.words_per_week-this.props.mastered.count]
-                  ,
-                  backgroundColor:[
-                    'green',
-                    'red'
-                  ]
+                  label:'Mastered',
+                  data: [this.props.mastered.count],
+                  backgroundColor: ['green']
+                },
+                {
+                  label: 'Words To Go',
+                  data: [this.props.settings.words_per_week],
+                  backgroundColor: ['red']
                 }
               ]
             }}
@@ -111,11 +106,26 @@ class ProgressChart extends Component {
                 display:true,
                 position:'right'
               },
-              cutoutPercentage: 50,
+              scales: {
+                xAxes: [{
+                  stacked: true,
+                  barThickness: 40,
+                  
+                }],
+                yAxes: [{
+                  stacked: true,
+                  ticks: {
+                      beginAtZero: true,
+                      max: this.props.settings.words_per_week,
+                      stepSize: 2,
+                      scaleStepWidth: 1,
+                      }
+                    }],
+              }
             }}
             />
         </div>
-        {/* {JSON.stringify(this.props.mastered)} */}
+        {JSON.stringify(this.props.mastered)}
       </div>
       </div>
     );

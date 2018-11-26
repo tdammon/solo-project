@@ -260,7 +260,7 @@ class SettingsPage extends Component {
               <DialogTitle>How Many Words Will You Master Each Week?</DialogTitle>
               <DialogContent>
                 <FormControl>
-                  <InputLabel>Words</InputLabel>
+                  <InputLabel></InputLabel>
                     
                       <TextField
                         label='Words Known'

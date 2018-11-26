@@ -17,7 +17,7 @@ function* getFlashcards(action) {
 // worker Saga: will be fired on "GET_MASTERED" actions
 function* getMastered(action) {
   try {
-
+    console.log('get words mastered', action.payload)
     const response = yield call(axios.get, '/flashcards/mastered', {params: {id: action.payload}});
     yield put({type: 'SET_MASTERED', payload: response.data[0]})
     

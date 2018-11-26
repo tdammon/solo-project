@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ProgressChart from '../ProgressChart/ProgressChart'
 import TableRow from '@material-ui/core/TableRow'
 import TableCell from '@material-ui/core/TableCell';
 import Table from '@material-ui/core/Table'
@@ -103,6 +104,9 @@ class AllCardsPage extends Component {
     const {classes} = this.props
     return (
       <div>
+        <div className={classes.progressChart}>
+        <ProgressChart />
+        </div>
         <div className={classes.container}>
         <Table className={classes.table}>
           <TableHead className={classes.head}>
@@ -173,6 +177,8 @@ const mapStateToProps = state => ({
   errors: state.errors,
   user: state.user,
   allcards: state.allcards,
+  hist: state.flashcardHistory,
+  settings: state.settingsReducer,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(AllCardsPage));
