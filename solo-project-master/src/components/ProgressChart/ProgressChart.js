@@ -17,7 +17,7 @@ const styles = theme => ({
       margin: 'auto',
     },
     piechart : {
-      width: 400,
+      width: 300,
       display: 'flex',
       justifyContent: 'spaceBetween',
       paddingLeft: 25,
@@ -125,7 +125,7 @@ class ProgressChart extends Component {
             }}
             />
         </div>
-        {JSON.stringify(this.props.mastered)}
+        {/* {JSON.stringify(this.props.mastered)} */}
       </div>
       </div>
     );
