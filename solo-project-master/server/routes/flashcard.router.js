@@ -70,8 +70,10 @@ router.put('/update', (req, res)=> {
     console.log('updatting',req.body)
     let word_id = req.body.word_id;
     let freqUpdated = req.body.frequencyUpdate.frequency;
-    let sqlText = `UPDATE words SET  frequency = ${freqUpdated}, date_mastered = now() WHERE id= $1`
-    pool.query(sqlText,[word_id])
+    let date_mastered = req.body.frequencyUpdate.date_mastered;
+    console.log(date_mastered)
+    let sqlText = `UPDATE words SET  frequency = ${freqUpdated}, date_mastered = $2 WHERE id= $1`
+    pool.query(sqlText,[word_id, date_mastered])
     .then(response => {
         res.sendStatus(201)
     }).catch(err => {

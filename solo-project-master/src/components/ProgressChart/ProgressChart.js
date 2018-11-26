@@ -56,12 +56,12 @@ class ProgressChart extends Component {
         <div className={classes.piechart}>
         <Pie
             data={{
-              labels: ['Total Words Mastered','Words Until 3000'],
+              labels: ['Total Words Mastered','Words To Go'],
               datasets:[
                 {
                   label:'Words To Fluency',
                   data:
-                    [this.props.settings.words_mastered, 3000]
+                    [this.props.settings.words_mastered, 3000-this.props.settings.words_mastered]
                   ,
                   backgroundColor:[
                     'green',

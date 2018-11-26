@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import TableRow from '@material-ui/core/TableRow'
-import TableCell from '@material-ui/core/TableCell'
+import TableCell from '@material-ui/core/TableCell';
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
 import Select from '@material-ui/core/Select'
@@ -15,6 +15,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core';
 
+
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    borderWidth: 2,
+    borderSyle: 'solid',
+    borderColor: 'black',
+    fontSize: 20,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
 const styles = theme => ({
   containers : {
     display: 'flex',
@@ -22,6 +35,7 @@ const styles = theme => ({
     },
     table : {
       width: 750,
+      marginTop: 40,
       margin: 'auto',
     },
     row: {
@@ -91,19 +105,19 @@ class AllCardsPage extends Component {
       <div>
         <div className={classes.container}>
         <Table className={classes.table}>
-          <TableHead>
+          <TableHead className={classes.head}>
             <TableRow>
-              <TableCell>Word</TableCell>
-              <TableCell>Translation</TableCell>
-              <TableCell>Edit</TableCell>
+              <CustomTableCell>Word</CustomTableCell>
+              <CustomTableCell>Translation</CustomTableCell>
+              <CustomTableCell>Edit</CustomTableCell>
             </TableRow>
           </TableHead>
         {this.props.allcards.map(item => {
           return(
             <TableRow className={classes.row}>
-              <TableCell>{item.native_word}</TableCell>
-              <TableCell>{item.translation}</TableCell>
-              <TableCell>
+              <CustomTableCell>{item.native_word}</CustomTableCell>
+              <CustomTableCell>{item.translation}</CustomTableCell>
+              <CustomTableCell>
                 <Button className={classes.button} onClick={()=>this.handleClickOpen(item.native_word, item.translation, item.id)} variant="raised">Edit</Button>
             <Dialog
               disableBackdropClick
@@ -142,7 +156,7 @@ class AllCardsPage extends Component {
                 </Button>
               </DialogActions>
               </Dialog>
-              </TableCell>
+              </CustomTableCell>
             </TableRow>
           )
         })}

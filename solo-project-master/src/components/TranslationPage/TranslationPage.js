@@ -18,10 +18,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
+    backgroundColor: '#dbd5d5',
     width: 500,
     padding: 35,
-    marginTop: 20,
+    marginTop: 40,
     borderRadius: 10,
   },
   translateButton: {

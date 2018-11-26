@@ -10,6 +10,18 @@ import ProgressChart from '../ProgressChart/ProgressChart'
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton'
 
+const CustomTableCell = withStyles(theme => ({
+  head: {
+    borderWidth: 2,
+    borderSyle: 'solid',
+    borderColor: 'black',
+    fontSize: 20,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
+
 const styles = theme => ({
   containers : {
     display: 'flex',
@@ -21,7 +33,17 @@ const styles = theme => ({
     piechart : {
       width: 400,
       display: 'flex',
-    }
+    },
+    table : {
+      width: 750,
+      marginTop: 40,
+      margin: 'auto',
+    },
+    row: {
+      '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.background.default,
+      },
+    },
     
 
 })
@@ -207,22 +229,22 @@ class StatisticsPage extends Component {
             />
         </div>
         </div>
-        <Table>
+        <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell>date</TableCell>
-              <TableCell>correct</TableCell>
-              <TableCell>word</TableCell>
-              <TableCell>translation</TableCell>
+              <CustomTableCell>Date</CustomTableCell>
+              <CustomTableCell>Correct</CustomTableCell>
+              <CustomTableCell>Word</CustomTableCell>
+              <CustomTableCell>Translation</CustomTableCell>
             </TableRow>
           </TableHead>
         {this.props.hist.map(item => {
           return(
-            <TableRow>
-              <TableCell>{Date(item.date).slice(0,15)}</TableCell>
-              <TableCell>{this.correctOrNot(item.correct)}</TableCell>
-              <TableCell>{item.native_word}</TableCell>
-              <TableCell>{item.translation}</TableCell>
+            <TableRow className={classes.row}>
+              <CustomTableCell>{Date(item.date).slice(4,15)}</CustomTableCell>
+              <CustomTableCell>{this.correctOrNot(item.correct)}</CustomTableCell>
+              <CustomTableCell>{item.native_word}</CustomTableCell>
+              <CustomTableCell>{item.translation}</CustomTableCell>
             </TableRow>
           )
         })}

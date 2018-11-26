@@ -20,10 +20,11 @@ const styles = theme => ({
   flashcardBox : {
     display: 'flex',
     justifyContent: 'space-between',
-    backgroundColor: 'grey',
+    // backgroundColor: 'grey',
+    backgroundColor: '#dbd5d5',
     width: 500,
     padding: 35,
-    marginTop: 20,
+    marginTop: 40,
     borderRadius: 10,
   },
   options : {
@@ -47,16 +48,34 @@ const styles = theme => ({
   flashcard: {
     display: 'flex',
     backgroundColor: 'white',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
     height: 180,
     width: 250,
-    marginLeft: 20,
+    // marginLeft: 20,
     // marginRight: 20,
   },
   responseButtons: {
     display: 'flex',
     justifyContent: 'space-between',
-    marginLeft: 20,
+    // alignSelf: 'flex-end',
+    width: 200,
+    // marginLeft: 20,
     marginTop: 2,
+  },
+  centerItem: {
+    margin: 'auto',
+  },
+  word: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    textAlign: 'center',
+    alignItems: 'center',
+    width: 250,
+    height: 100,
+    margin: 'auto',
+    fontSize: 25,
   },
   response: {
     fontSize: 11,
@@ -121,7 +140,7 @@ class FlashcardsPage extends Component {
     if(!this.state.flip){
       return this.state.front;
     } else {
-      return (<div><p>{this.state.back}</p><div className={classes.responseButtons}><IconButton><ThumbDownAlt /></IconButton><IconButton><Lock /></IconButton><IconButton><ThumbUpAlt /></IconButton></div></div>)
+      return (<div><div>{this.state.back}</div></div>)
     }
   }
 
@@ -129,15 +148,15 @@ class FlashcardsPage extends Component {
     let frequencyUpdate = {}
     switch(number) {
       case '1':
-      frequencyUpdate = {frequency: 'frequency+0.05', incorrect: 1, correct: 0};
+      frequencyUpdate = {frequency: 'frequency+0.05', incorrect: 1, correct: 0, date_mastered: null};
       this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
       case '2':
-      frequencyUpdate = {frequency: '0', words_mastered: 'words_mastered+1'};
+      frequencyUpdate = {frequency: '0', words_mastered: 'words_mastered+1', date_mastered: 'now()'};
       this.props.dispatch({type: 'LOCK_CARD', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
       case '3':
-      frequencyUpdate = {frequency: 'frequency-0.05', incorrect: 0, correct: 1};
+      frequencyUpdate = {frequency: 'frequency-0.05', incorrect: 0, correct: 1, date_mastered: null};
       this.props.dispatch({type: 'POST_HISTORY', payload: {user_id : this.props.user.id, word_id : this.state.word_id, frequencyUpdate}})
       break;
     }
@@ -160,13 +179,20 @@ class FlashcardsPage extends Component {
             </FormControl>
           </div>
           <div>
-            <div className={classes.flashcard} onClick={this.flipCard}>
-              {this.displayFlashcard()}
-            </div>
-            <div className={classes.responseButtons}>
-              <Button onClick={()=>this.sendAnswer('1')} className={classes.response} variant='raised'>Incorrect</Button>
-              <Button onClick={()=>this.sendAnswer('2')} className={classes.response} variant='raised'>Lock</Button>
-              <Button onClick={()=>this.sendAnswer('3')} className={classes.response} variant='raised'>Correct</Button>
+            <div className={classes.flashcard} >
+              <div className={classes.word} onClick={this.flipCard}> 
+              <p className={classes.centerItem}>{this.displayFlashcard()}</p>
+              </div>
+              <div className={classes.responseButtons}>
+              <IconButton onClick={()=>this.sendAnswer('1')}>
+              <ThumbDownAlt />
+              </IconButton >
+              <IconButton onClick={()=>this.sendAnswer('2')}>
+              <Lock />
+              </IconButton>
+              <IconButton onClick={()=>this.sendAnswer('3')}>
+              <ThumbUpAlt />
+              </IconButton></div>
             </div>
           </div>
         </div>

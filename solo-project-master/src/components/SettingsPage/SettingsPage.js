@@ -17,6 +17,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     },
+    header: {
+      display: 'flex',
+      fontSize: 25,
+      marginLeft:25,
+    },
     form : {
       backgroundColor: '#dbd5d5',
       height: 'auto',
@@ -28,8 +33,8 @@ const styles = theme => ({
       width: 750,
       display: 'flex',
       justifyContent: 'space-around',
-      paddingTop: 20,
-      paddingBottom: 20,
+      // paddingTop: 20,
+      // paddingBottom: 20,
     },
     inputTitles : {
       marginTop : 35,
@@ -44,6 +49,9 @@ const styles = theme => ({
       marginTop: 10,
     },
     button : {
+      margin: 22,
+    },
+    confirmButton : {
       margin: 22,
     }
 
@@ -153,8 +161,8 @@ class SettingsPage extends Component {
       {/* {JSON.stringify(this.props.settings)} */}
         <div className={classes.form}>
           <Paper >
-            <header>
-              <h3>Settings</h3>
+          <header className={classes.header}>
+              <h3> Settings</h3>
             </header>
             <div className={classes.paper}>
             <div className={classes.inputTitles}>
@@ -351,7 +359,7 @@ class SettingsPage extends Component {
 
             </div>
             </div>
-            <Button onClick={this.updateSettings}>Confirm</Button>
+            <Button className={classes.confirmButton} onClick={this.updateSettings} variant='outlined'>Confirm</Button>
           </Paper>
         </div>
       </div>
