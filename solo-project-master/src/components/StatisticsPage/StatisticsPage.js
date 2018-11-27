@@ -237,7 +237,7 @@ class StatisticsPage extends Component {
         {this.props.hist.map(item => {
           return(
             <TableRow className={classes.row}>
-              <CustomTableCell>{Date(item.date).slice(4,15)}</CustomTableCell>
+              <CustomTableCell>{item.date.slice(0,10)}</CustomTableCell>
               <CustomTableCell>{this.correctOrNot(item.correct)}</CustomTableCell>
               <CustomTableCell>{item.native_word}</CustomTableCell>
               <CustomTableCell>{item.translation}</CustomTableCell>

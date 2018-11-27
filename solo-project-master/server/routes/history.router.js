@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     let sqlText = `SELECT history.date, history.correct, history.incorrect, 
     words.native_word, words.translation FROM history 
     JOIN words ON words.id = history.word_id 
-    WHERE history.account_id = $1;`
+    WHERE history.account_id = $1 ORDER BY date DESC;`
     pool.query(sqlText,[id])
     .then( response => {
         res.send(response.rows)
