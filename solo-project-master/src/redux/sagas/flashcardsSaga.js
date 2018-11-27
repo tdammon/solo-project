@@ -70,6 +70,7 @@ function* lockCard(action) {
   try{
     yield call(axios.put, '/flashcards/update', action.payload)
     yield call(axios.put, '/settings/mastered', action.payload)
+    yield put({type: 'GET_MASTERED',  payload: action.payload.user_id})
     yield put({type: 'UPDATE_FLASHCARD_ARRAY'})
   }
   catch(error) {

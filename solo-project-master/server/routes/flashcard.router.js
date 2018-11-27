@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 //GET only weekly mastered card count
 router.get('/mastered', (req,res) => {
     console.log('mastered',req.query)
-    let id = req.query.id;
+    let id = req.query.id || req.query.user_id;
     console.log(id)
     let sqlText = `SELECT COUNT(*) FROM words WHERE date_mastered >= date_trunc('week', now()) AND account_id = $1;`
     pool.query(sqlText, [id])
