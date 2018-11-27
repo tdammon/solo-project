@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {withStyles} from '@material-ui/core';
 import { call, put} from 'redux-saga/effects';
+import ProgressChart from '../ProgressChart/ProgressChart';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
@@ -80,6 +81,9 @@ const styles = theme => ({
   response: {
     fontSize: 11,
     padding: 10,
+  },
+  page: {
+    display: 'flex'
   }
 })
 
@@ -166,6 +170,10 @@ class FlashcardsPage extends Component {
   render() {
     const {classes} = this.props
     return (
+      <div className={classes.page}>
+      <div className={classes.progressChart}>
+        <ProgressChart />
+        </div>
       <div className={classes.container}>
         <div className={classes.flashcardBox}>
           <div className={classes.options}>
@@ -197,6 +205,7 @@ class FlashcardsPage extends Component {
           </div>
         </div>
         {/* {JSON.stringify(this.props.flashcards)} */}
+      </div>
       </div>
     );
   }

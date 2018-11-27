@@ -7,8 +7,10 @@ import { withStyles } from '@material-ui/core';
 const styles = theme => ({
   containers : {
     display: 'flex',
-    margin: 'auto',
-    position: 'absolute',
+    marginTop: 40,
+    marginRight: 15,
+    justifyContent: 'flex-start',
+    // position: 'relative',
     },
     pieholder: {
       display: 'flex',
@@ -17,10 +19,11 @@ const styles = theme => ({
       margin: 'auto',
     },
     piechart : {
-      width: 300,
+      // width: 300,
+      height: 240,
       display: 'flex',
       justifyContent: 'spaceBetween',
-      paddingLeft: 25,
+      paddingLeft: 15,
     }
 
 
@@ -48,7 +51,7 @@ class ProgressChart extends Component {
     return (
       <div className={classes.containers}>
         <div className={classes.pieholder}>
-        <div className={classes.piechart}>
+        {/* <div className={classes.piechart}>
         <Pie
             data={{
               labels: ['Total Words Mastered','Words To Go'],
@@ -78,7 +81,7 @@ class ProgressChart extends Component {
               cutoutPercentage: 50,
             }}
             />
-        </div>
+        </div> */}
         <div className={classes.piechart}>
         <Bar
             data={{
@@ -106,10 +109,12 @@ class ProgressChart extends Component {
                 display:true,
                 position:'right'
               },
+              maintainAspectRatio: false,
               scales: {
                 xAxes: [{
                   stacked: true,
-                  barThickness: 40,
+                  categoryPercentage: 0.9,
+                  
                   
                 }],
                 yAxes: [{
@@ -117,8 +122,7 @@ class ProgressChart extends Component {
                   ticks: {
                       beginAtZero: true,
                       max: this.props.settings.words_per_week,
-                      stepSize: 2,
-                      scaleStepWidth: 1,
+                      stepSize: 3,
                       }
                     }],
               }

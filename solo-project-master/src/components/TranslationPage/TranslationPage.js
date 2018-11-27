@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { withStyles } from '@material-ui/core';
+import ProgressChart from '../ProgressChart/ProgressChart'
 
 const styles = theme => ({
   input : {
@@ -43,6 +44,9 @@ const styles = theme => ({
   buttonContainer : {
     display: 'flex',
     justifyContent: 'space-around',
+  },
+  page : {
+    display: 'flex',
   }
 })
 
@@ -105,6 +109,10 @@ class TranslationPage extends Component {
   render() {
     const {classes} = this.props
     return (
+      <div className={classes.page}>
+        <div className={classes.progressChart}>
+        <ProgressChart />
+        </div>
       <div className={classes.container}>
         <div className={classes.translateBox}>
           <TextField
@@ -131,6 +139,7 @@ class TranslationPage extends Component {
           </div>
         </div>
         {/* {JSON.stringify(this.props.flashcards)} */}
+      </div>
       </div>
     );
   }

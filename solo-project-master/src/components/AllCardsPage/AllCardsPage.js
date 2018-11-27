@@ -44,6 +44,9 @@ const styles = theme => ({
         backgroundColor: theme.palette.background.default,
       },
     },
+    allCardsPage: {
+      display: 'flex'
+    }
 })
 class AllCardsPage extends Component {
 
@@ -103,7 +106,7 @@ class AllCardsPage extends Component {
   render() {
     const {classes} = this.props
     return (
-      <div>
+      <div className={classes.allCardsPage}>
         <div className={classes.progressChart}>
         <ProgressChart />
         </div>
