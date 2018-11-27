@@ -62,9 +62,11 @@ class StatisticsPage extends Component {
     let now = Date.now();
     switch(string){
       case 'day':
+      
         let dayArray = this.props.hist.filter(item => Date.parse(item.date) > now-86400000)
         let dayCorrect = dayArray.filter(item => item.correct == 1)
         let dayIncorrect = dayArray.filter(item => item.incorrect == 1)
+        console.log(dayCorrect, 'checkout this array')
         return [dayCorrect.length,dayIncorrect.length];
       case 'week':
         let weekArray = this.props.hist.filter(item => Date.parse(item.date) > now-604800000)
@@ -110,7 +112,7 @@ class StatisticsPage extends Component {
               labels: ['Correct','Incorrect'],
               datasets:[
                 {
-                  label:'Past Day',
+                  label:'Today',
                   data:
                     this.searchHistory('day')
                   ,
