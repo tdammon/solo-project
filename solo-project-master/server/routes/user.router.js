@@ -13,7 +13,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 //Sends back users settings
-router.get('/settings/:id', (req,res) => {
+router.get('/settings/:id', rejectUnauthenticated, (req,res) => {
   let id = req.params.id
   let sqlText = `SELECT * FROM settings WHERE account_id = $1`
   pool.query(sqlText,[id])
