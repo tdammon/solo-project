@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 });
 
 router.post('/', rejectUnauthenticated, (req,res)=> {
-    console.log(req.body)
+    console.log('adding to history', req.body)
     let user_id = req.body.user_id;
     let word_id = req.body.word_id;
     let correct = req.body.frequencyUpdate.correct;
