@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //GET settings from database filter by id
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('settings', req.query)
     console.log(req.body)
     let id = req.query.id;
@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
 });
 
 //PUT new settings to the database
-router.put('/update', (req, res) => {
+router.put('/update', rejectUnauthenticated, (req, res) => {
     console.log('updating settings', req.body)
     let account_id = req.body.user_id;
     let native = Number(req.body.native);
@@ -40,7 +40,7 @@ router.put('/update', (req, res) => {
 });
 
 //Lock card
-router.put('/mastered', (req,res) => {
+router.put('/mastered', rejectUnauthenticated, (req,res) => {
     console.log('word mastered', req.body)
     let account_id = req.body.user_id;
     let sqlText = `UPDATE settings SET "words_mastered" = words_mastered +1 WHERE account_id = $1`
@@ -53,7 +53,7 @@ router.put('/mastered', (req,res) => {
 })
 
 //POST new settings to database
-router.post('/', (req,res) => {
+router.post('/', rejectUnauthenticated, (req,res) => {
     console.log(req.body)
     let account_id = req.body.user_id;
     let native = Number(req.body.native);

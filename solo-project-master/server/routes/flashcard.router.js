@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //GET flashcards from database filter by id and 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.query)
     let id = req.query.id;
     let filter = req.query.filter;
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
 });
 
 //GET only weekly mastered card count
-router.get('/mastered', (req,res) => {
+router.get('/mastered', rejectUnauthenticated, (req,res) => {
     console.log('mastered',req.query)
     let id = req.query.id || req.query.user_id;
     console.log(id)
@@ -33,7 +33,7 @@ router.get('/mastered', (req,res) => {
 })
 
 //this GET route will check if a flashcard exists with the given words
-router.get('/duplicate', (req,res) => {
+router.get('/duplicate', rejectUnauthenticated, (req,res) => {
     console.log('checking for duplicate', req.query)
     let ids = Number(req.query.id);
     let word = req.query.word;
@@ -50,7 +50,7 @@ router.get('/duplicate', (req,res) => {
 })
 
 // POST new flashcards to the database
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     console.log('flashcard', req.body)
     let account_id = req.body.id
     let input = req.body.inputText;
@@ -66,7 +66,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.put('/update', (req, res)=> {
+router.put('/update', rejectUnauthenticated, (req, res)=> {
     console.log('updatting',req.body)
     let word_id = req.body.word_id;
     let freqUpdated = req.body.frequencyUpdate.frequency;
@@ -82,7 +82,7 @@ router.put('/update', (req, res)=> {
 })
 
 
-router.put('/edit', (req,res)=> {
+router.put('/edit', rejectUnauthenticated, (req,res)=> {
     console.log(req.body)
     let word = req.body.word
     let translation = req.body.translation

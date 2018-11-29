@@ -4,7 +4,7 @@ const axios = require('axios');
 const router = express.Router();
 
 //GET request to Google Translate API
-router.get('/', (req,res)=>{
+router.get('/', rejectUnauthenticated, (req,res)=>{
 
     console.log(req.query);
     let encodedWord = encodeURIComponent(req.query.q);
@@ -23,7 +23,7 @@ router.get('/', (req,res)=>{
     })
 })
 
-router.get('/reverse', (req,res)=>{
+router.get('/reverse', rejectUnauthenticated, (req,res)=>{
     console.log('running')
     console.log(req.query);
     let encodedWord = encodeURIComponent(req.query.q);

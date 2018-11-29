@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 //GET settings from database filter by id
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
     console.log(req.query)
     let id = req.query.id;
     let sqlText = `SELECT history.date, history.correct, history.incorrect, 
@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
     })
 });
 
-router.post('/', (req,res)=> {
+router.post('/', rejectUnauthenticated, (req,res)=> {
     console.log(req.body)
     let user_id = req.body.user_id;
     let word_id = req.body.word_id;
