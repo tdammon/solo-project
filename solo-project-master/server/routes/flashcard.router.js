@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //GET flashcards from database filter by id and 
 router.get('/', rejectUnauthenticated, (req, res) => {

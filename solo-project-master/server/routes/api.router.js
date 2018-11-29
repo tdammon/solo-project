@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const axios = require('axios');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 //GET request to Google Translate API
 router.get('/', rejectUnauthenticated, (req,res)=>{
