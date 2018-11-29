@@ -7,11 +7,14 @@ const router = express.Router();
 router.get('/', (req,res)=>{
 
     console.log(req.query);
-    axios.get(`https://translation.googleapis.com/language/translate/v2?q=${req.query.q}&target=${req.query.target}&source=${req.query.source}&key=${process.env.GOOGLE_API_KEY}`)
+    let encodedWord = encodeURIComponent(req.query.q);
+    console.log(encodedWord)
+    axios.get(`https://translation.googleapis.com/language/translate/v2?q=${encodedWord}&target=${req.query.target}&source=${req.query.source}&key=${process.env.GOOGLE_API_KEY}`)
     .then(response => {
         if(req.query.q == response.data.data.translations[0].translatedText){
             res.send('reverse')
         } else {
+            console.log(response.data.data)
             res.send(response.data)
         }
         
@@ -23,9 +26,11 @@ router.get('/', (req,res)=>{
 router.get('/reverse', (req,res)=>{
     console.log('running')
     console.log(req.query);
-    axios.get(`https://translation.googleapis.com/language/translate/v2?q=${req.query.q}&target=${req.query.source}&source=${req.query.target}&key=${process.env.GOOGLE_API_KEY}`)
+    let encodedWord = encodeURIComponent(req.query.q);
+    console.log(encodedWord)
+    axios.get(`https://translation.googleapis.com/language/translate/v2?q=${encodedWord}&target=${req.query.source}&source=${req.query.target}&key=${process.env.GOOGLE_API_KEY}`)
     .then(response => {
-        console.log(response.data)
+        console.log(response.data.data)
         res.send(response.data)
     }).catch(err=> {
         console.log(err)

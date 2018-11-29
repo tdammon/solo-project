@@ -4,7 +4,7 @@ const router = express.Router();
 
 //GET settings from database filter by id
 router.get('/', (req, res) => {
-    console.log('settings',req.query)
+    console.log('settings', req.query)
     console.log(req.body)
     let id = req.query.id;
     let sqlText = `SELECT nat_lang.id as nat_lang_id, trans_lang.id as trans_lang_id, nat_lang.language_code as native_language_code, nat_lang.language as native_language, trans_lang.language_code as translated_language_code, trans_lang.language as translated_language, settings.words_per_week, settings.cards_per_session, settings.words_mastered FROM settings 
