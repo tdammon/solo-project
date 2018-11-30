@@ -180,7 +180,7 @@ class FlashcardsPage extends Component {
             <Button onClick={this.getFlashcards} variant='raised'>Begin Flashcards</Button>
             <FormControl>
               <RadioGroup className={classes.group} value={this.state.sortBy} onChange={this.handleChange}>
-                <FormControlLabel className={classes.select} value='id' control={<Radio />} label='Newest'/>
+                <FormControlLabel className={classes.select} value='id DESC' control={<Radio />} label='Newest'/>
                 <FormControlLabel className={classes.select} value='frequency' control={<Radio />} label='Difficulty' />
                 <FormControlLabel className={classes.select} value='RANDOM()' control={<Radio />} label='Random' />
               </RadioGroup>
