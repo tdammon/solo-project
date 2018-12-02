@@ -6,7 +6,7 @@ const flashcards = (state = [], action) => {
       case 'UPDATE_FLASHCARD_ARRAY':
       console.log('updating flashcards', action.payload)
       if(state.length > 1){
-        if(action.payload == 1){
+        if(action.payload != 0){
           return state.slice(1,state.length)
         } else {
           let currentCard = state[0]
