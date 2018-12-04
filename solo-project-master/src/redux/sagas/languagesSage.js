@@ -1,7 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-
+// worker Saga: will be fired on "GET_LANGUAGES" actions
+// gets all the allowed languages
 function* getLanguages(action) {
     try {
         

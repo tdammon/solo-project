@@ -1,3 +1,4 @@
+//This reducer checks if the user logging in has settings stored
 const userReducerToSettings = (state = {}, action) => {
     switch (action.type) {
       case 'SET_USER_TO_SETTINGS':

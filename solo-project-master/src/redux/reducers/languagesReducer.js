@@ -1,3 +1,4 @@
+//This reducer holds a list of languages
 const languages = (state = [], action) => {
     switch (action.type) {
       case 'SET_LANGUAGES':

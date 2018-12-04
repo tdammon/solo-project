@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "GET_FLASHCARDS" actions
+//gets flashcards with a particular filter
 function* getFlashcards(action) {
   try {
 
@@ -15,6 +16,7 @@ function* getFlashcards(action) {
 }
 
 // worker Saga: will be fired on "GET_MASTERED" actions
+// gets data on mastered flashcards
 function* getMastered(action) {
   try {
     console.log('get words mastered', action.payload)
@@ -27,6 +29,9 @@ function* getMastered(action) {
   }
 }
 
+// worker Saga: will be fired on "CHECK_FOR_DUPLICATE" actions
+// searches for a duplicate flashcard
+// makes a new card if a duplicate is not found
 function* checkForDuplicate(action) {
   try {
 
@@ -46,6 +51,7 @@ function* checkForDuplicate(action) {
 }
 
 //worker Saga: will be fired on "MAKE_FLASHCARD" actions
+// adds a new flashcard to the database
 function* makeFlashcard(action) {
   try{
 
@@ -56,6 +62,8 @@ function* makeFlashcard(action) {
   }
 }
 
+//worker Saga: will be fired on "EDIT_FLASHCARD" actions
+// edits an existing flashcard
 function* editFlashcard(action) {
   try{
     yield call(axios.put, '/flashcards/edit', action.payload)
@@ -66,6 +74,9 @@ function* editFlashcard(action) {
   }
 }
 
+//worker Saga: will be fired on "LOCK_CARD" actions
+// updates the flashcards frequency and matered date
+// updates the total number of mastered cards
 function* lockCard(action) {
   try{
     yield call(axios.put, '/flashcards/update', action.payload)

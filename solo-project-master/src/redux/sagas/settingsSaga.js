@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "GET_SETTINGS" actions
+// gets settings for a particular user
 function* getSettings(action) {
   try {
     console.log('get', action)
@@ -15,6 +16,7 @@ function* getSettings(action) {
 }
 
 // worker Saga: will be fired on"UPDATE_SETTINGS" actions
+// changes settings for a particular user
 function* setSettings(action) {
   try {
 
@@ -27,6 +29,7 @@ function* setSettings(action) {
 }
 
 //worker Saga: will be fired on "NEW_SETTINGS" actions
+// adds new settings for a new user
 function* newSettings(action) {
   try{
     yield call(axios.post, '/settings', action.payload)

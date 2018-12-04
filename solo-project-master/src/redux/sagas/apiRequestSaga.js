@@ -1,7 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-
+//worker Saga: will be fired on "SEND_API_REQUEST" actions
+// sends a request to the API with given parameters
+// If the API response is the same as the query reverse the given parameters and send request to API
 function* apiRequest(action) {
     try {
         

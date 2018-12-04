@@ -1,7 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// worker Saga: will be fired on "GET_FLASHCARDS" actions
+// worker Saga: will be fired on "GET_ALL_CARDS" actions
+// gets all of a users flashcards
 function* getAllCards(action) {
   try {
 

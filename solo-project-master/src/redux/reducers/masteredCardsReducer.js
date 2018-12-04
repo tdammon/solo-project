@@ -1,3 +1,4 @@
+//This reducer holds a list of mastered flashcards
 const masteredCards = (state = {}, action) => {
     switch (action.type) {
       case 'SET_MASTERED':

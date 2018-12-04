@@ -1,3 +1,4 @@
+//This reducer holds a users flashcard history
 const flashcardHistory = (state = [], action) => {
     switch (action.type) {
       case 'DISPLAY_HISTORY':

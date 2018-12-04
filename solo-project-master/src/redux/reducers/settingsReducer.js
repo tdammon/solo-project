@@ -1,3 +1,4 @@
+//This reducer holds a users settings
 const settingsReducer = (state = {}, action) => {
     switch (action.type) {
       case 'DISPLAY_SETTINGS':

@@ -1,3 +1,5 @@
+//This reducer holds a list of flashcards for a current flashcard session
+//The reducer can also change the order of the cards
 const flashcards = (state = [], action) => {
     switch (action.type) {
       case 'SET_FLASHCARD':

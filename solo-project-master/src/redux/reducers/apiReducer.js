@@ -1,3 +1,4 @@
+//This reducer holds the response from the API request
 const api = (state = [], action) => {
     switch (action.type) {
       case 'SET_API':

@@ -2,6 +2,7 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 // worker Saga: will be fired on "GET_HISTORY" actions
+// gets a list of flashcard history
 function* getHistory(action) {
   try {
     
@@ -15,6 +16,8 @@ function* getHistory(action) {
 }
 
 //worker Saga: will be fired on"POST_HISTORY" actions
+// adds a new entry to the history database
+// updates the flashcard frequency rating
 function* setHistory(action) {
   try {
     console.log(action.payload)

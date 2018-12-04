@@ -1,3 +1,4 @@
+//This reducer holds a list of all flashcards
 const allcards = (state = [], action) => {
     switch (action.type) {
       case 'SET_All_CARDS':
