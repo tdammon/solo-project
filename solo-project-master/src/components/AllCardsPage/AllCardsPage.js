@@ -57,7 +57,7 @@ class AllCardsPage extends Component {
     word_id: '',
   }
 
-
+// This function opens an edit option for a flashcard
   handleClickOpen = (word, translation, word_ids) =>{
     this.setState({
       ...this.state,
@@ -68,6 +68,7 @@ class AllCardsPage extends Component {
     })
   }  
 
+  //This function closes the edit option
   handleClose= () => {
     this.setState({
       ...this.state,
@@ -75,6 +76,7 @@ class AllCardsPage extends Component {
     })
   }
 
+  // This function updates the local state with edits
   handleChange= (tag) => event=> {
     this.setState({
       ...this.state,
@@ -82,15 +84,18 @@ class AllCardsPage extends Component {
     })
   }
 
+  // This function gets all cards with a particular user id
   getAllCards=() => {
     console.log(this.props.user.id)
     this.props.dispatch({type: 'GET_ALL_CARDS', payload: this.props.user.id})
   }
 
+  // calls getAllCards when the component mounts
   componentDidMount() {
     this.getAllCards();
   }
 
+  //This function dispatches an action to edit a flashcard
   editWord=()=> {
     this.props.dispatch({type: 'EDIT_FLASHCARD', 
     payload: {

@@ -37,10 +37,12 @@ class ProgressChart extends Component {
     this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
   }
 
+  // This function gets a list of the words mastered
   getWordsMastered=() => {
     this.props.dispatch({type: 'GET_MASTERED', payload: this.props.user.id})
   }
 
+  // Get settings and words mastered when component mounts
   componentDidMount() {
       this.getSettings();
       this.getWordsMastered();

@@ -112,13 +112,16 @@ class FlashcardsPage extends Component {
     this.props.dispatch({type: 'GET_FLASHCARDS', payload: {id: this.props.user.id, filter: this.state.sortBy}})
   }
 
+  // This function checks if the components' flashcard state has updated
+  // If it has than begin flashcards runs
   componentDidUpdate(prevProps){
     if(this.props.flashcards !== prevProps.flashcards){
       this.beginFlashcardSession()
     }
   }
   
-
+  // This function begins a flashcard session by taking flashcards from 
+  // a reducer and moving them in to local state
   beginFlashcardSession=()=> {
     let deck = this.props.flashcards;
     let card = this.props.flashcards[0];
@@ -133,6 +136,7 @@ class FlashcardsPage extends Component {
     }, ()=>this.displayFlashcard(deck))
   }
 
+  // This function reveals the opposite side of the card
   flipCard = () => {
     this.setState({
       ...this.state,
@@ -140,6 +144,7 @@ class FlashcardsPage extends Component {
     })
   }
 
+  //This function displays the front face of a flashcards
   displayFlashcard = (deck) => {
     if(!this.state.flip){
       return this.state.front;
@@ -148,6 +153,8 @@ class FlashcardsPage extends Component {
     }
   }
 
+  //Dispatch an action depending on if the user indicates they knew the answer to a flashcard
+  // or if they didn't answer correctly, or if they wish to lock the card
   sendAnswer = (number) => {
     let frequencyUpdate = {}
     switch(number) {

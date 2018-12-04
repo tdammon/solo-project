@@ -49,7 +49,7 @@ const styles = theme => ({
 })
 class StatisticsPage extends Component {
   
-
+  // gets history from database
   getHistory= () => {
     this.props.dispatch({type: 'GET_HISTORY', payload: this.props.user.id})
   }
@@ -85,6 +85,9 @@ class StatisticsPage extends Component {
     }
   }
 
+  // This function displays a green check mark or a red X 
+  // in the table depending on whether or not the flashcard was 
+  // answered correctly
   correctOrNot=(correct)=> {
     console.log('running')
     if(correct == 1){
@@ -95,6 +98,7 @@ class StatisticsPage extends Component {
     }
   }
 
+  // run get history when component mounts
   componentDidMount() {
     this.getHistory();
   }

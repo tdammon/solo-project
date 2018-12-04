@@ -66,6 +66,7 @@ class TranslationPage extends Component {
     })
   }
 
+  // Retrieves settings on component mount
   componentDidMount() {
       this.props.dispatch({type: 'GET_SETTINGS', payload: this.props.user.id})
     
@@ -111,10 +112,12 @@ class TranslationPage extends Component {
     return (
       <div className={classes.page}>
         <div className={classes.progressChart}>
+        
         <ProgressChart />
         </div>
       <div className={classes.container}>
         <div className={classes.translateBox}>
+        
           <TextField
             label='Input Text'
             value= {this.state.inputText}
@@ -128,7 +131,7 @@ class TranslationPage extends Component {
             className={classes.translation}
             value={this.state.translation}
             onChange={this.handleChange('translation')}
-            // variant='outlined'
+            
             multiline
             rows="6"
             margin='normal'
