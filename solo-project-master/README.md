@@ -89,21 +89,21 @@ A view of the scoping document can be found here:
 
 ### Completed Features
 
--[x] Sign in with protected routes
--[x] Editable settings page
--[x] Translation using Google API
--[x] Flashcard sessions can be done by newest, difficulty, or random
--[x] Flashcards flip to reveal the reverse side
--[x] The flashcard deck reorders to move a new card to the front
--[x] Charts are made to show weekly progress as well as flashcard statistics
--[x] Flashcard session history is stored and seen on the history page
--[x] All cards can be viewed on the all cards page
--[x] A fully functional browser extension words in conjunction with the site (this is published here: [Browser Extension](https://github.com/tdammon/chromeExtensions))
+- [x] Sign in with protected routes
+- [x] Editable settings page
+- [x] Translation using Google API
+- [x] Flashcard sessions can be done by newest, difficulty, or random
+- [x] Flashcards flip to reveal the reverse side
+- [x] The flashcard deck reorders to move a new card to the front
+- [x] Charts are made to show weekly progress as well as flashcard statistics
+- [x] Flashcard session history is stored and seen on the history page
+- [x] All cards can be viewed on the all cards page
+- [x] A fully functional browser extension words in conjunction with the site (this is published here: [Browser Extension](https://github.com/tdammon/chromeExtensions))
 
 ### Next Steps
 
--[ ] Develop a mobile version of the translator page
--[ ] Develop a mobile version of the flashcard page
+- [ ] Develop a mobile version of the translator page
+- [ ] Develop a mobile version of the flashcard page
 
 ### Navigation
 
