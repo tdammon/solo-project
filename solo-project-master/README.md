@@ -87,7 +87,7 @@ A view of the scoping document can be found here:
 
 [Scoping Document](https://docs.google.com/document/d/1tfVoXBBmusDtu8uYvCrqJfEyb6ZVApluVgLeF7Ixy0k/edit?usp=sharing)
 
-###Completed Features
+### Completed Features
 
 -[x] Sign in with protected routes
 -[x] Editable settings page
